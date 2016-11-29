@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/mainGroup"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/homeMenu"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/drawer_menu_home" />
+
+        <item
+            android:id="@+id/trend"
+            android:icon="@drawable/ic_trending_up_black_24dp"
+            android:title="@string/drawer_menu_trend" />
+
+        <item
+            android:id="@+id/movie"
+            android:icon="@drawable/ic_movie_black_24dp"
+            android:title="@string/drawer_menu_movies" />
+    </group>
+
+    <group
+        android:id="@+id/settingsGroup"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/drawer_menu_settings" />
+
+        <item
+            android:id="@+id/feedback"
+            android:icon="@drawable/ic_feedback_black_24dp"
+            android:title="@string/drawer_menu_feedback" />
+    </group>
+</menu>

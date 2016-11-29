@@ -1,0 +1,23 @@
+CREATE TABLE resource (
+    url TEXT NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    magnet TEXT,
+    type TEXT NOT NULL,
+    size TEXT NOT NULL,
+    files INTEGER NOT NULL,
+    downloads INTEGER NOT NULL,
+    updated TEXT NOT NULL,
+    created TEXT NOT NULL
+);
+
+insert_row:
+INSERT INTO resource (url, title, type, size, files, downloads, updated, created)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+update_row:
+UPDATE resource
+SET title = ?, magnet = ?, type = ?, size = ?, files = ?, downloads = ?, updated = ?, created = ?
+WHERE url = ?;
+
+select_count:
+SELECT count(*) FROM resource WHERE url = ?;

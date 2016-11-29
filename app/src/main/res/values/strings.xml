@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">xtorrent</string>
+    <string name="app_name">Xtorrent</string>
+
+    <string name="text_empty">Empty</string>
+    <string name="text_error_tips">Network error</string>
+    <string name="button_retry">Retry</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="hint_search">Search</string>
+
+    <string name="drawer_menu_home">Home</string>
+    <string name="drawer_menu_trend">Trend</string>
+    <string name="drawer_menu_movies">Movie</string>
+    <string name="drawer_menu_settings">Settings</string>
+    <string name="drawer_menu_feedback">Feedback</string>
+
+    <string name="tab_item_hot">Hot</string>
+    <string name="tab_item_popularity">Popularity</string>
+    <string name="tab_item_newly">Newly</string>
 </resources>

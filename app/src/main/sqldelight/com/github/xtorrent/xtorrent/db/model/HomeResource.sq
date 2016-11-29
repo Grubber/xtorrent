@@ -1,0 +1,18 @@
+import com.github.xtorrent.xtorrent.home.model.HomeResource;
+
+CREATE TABLE home_resource (
+    _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT,
+    url TEXT NOT NULL,
+    type TEXT AS HomeResource.Type NOT NULL
+);
+
+select_all:
+SELECT * FROM home_resource WHERE type = ?;
+
+insert_row:
+INSERT INTO home_resource (title, description, url, type) VALUES (?, ?, ?, ?);
+
+delete_all:
+DELETE FROM home_resource WHERE type = ?;
