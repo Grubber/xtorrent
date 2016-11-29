@@ -3,7 +3,6 @@ package com.github.xtorrent.xtorrent.main
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -51,6 +50,14 @@ class MainFragment : XFragment() {
         SearchAdapter(context)
     }
 
+    private val _fragments by lazy {
+        arrayListOf(
+                HomeFragment.newInstance(),
+                TrendFragment.newInstance(),
+                MovieFragment.newInstance()
+        )
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -58,7 +65,8 @@ class MainFragment : XFragment() {
         _setNavigationView()
         _setSearchView()
 
-        _replaceContentFrame(HomeFragment.newInstance())
+        _initFragments()
+        _replaceContentFrame(0)
         _navigationView.setCheckedItem(R.id.homeMenu)
     }
 
@@ -88,20 +96,18 @@ class MainFragment : XFragment() {
 
     private fun _setNavigationView() {
         _navigationView.setNavigationItemSelectedListener {
-            var content: Fragment? = null
+            var index: Int = 0
 
             when (it.itemId) {
-                R.id.homeMenu -> content = HomeFragment.newInstance()
+                R.id.homeMenu -> index = 0
 
-                R.id.trend -> content = TrendFragment.newInstance()
+                R.id.trend -> index = 1
 
-                R.id.movie -> content = MovieFragment.newInstance()
+                R.id.movie -> index = 2
             }
 
             if (!it.isChecked) {
-                content?.let {
-                    _replaceContentFrame(it)
-                }
+                _replaceContentFrame(index)
                 it.isChecked = true
             }
             _drawerLayout.closeDrawer(GravityCompat.START)
@@ -109,10 +115,24 @@ class MainFragment : XFragment() {
         }
     }
 
-    private fun _replaceContentFrame(content: Fragment) {
-        childFragmentManager.beginTransaction()
-                .replace(R.id.content, content)
-                .commit()
+    private fun _initFragments() {
+        val transaction = childFragmentManager.beginTransaction()
+        _fragments.forEach {
+            transaction.add(R.id.content, it)
+        }
+        transaction.commit()
+    }
+
+    private fun _replaceContentFrame(index: Int) {
+        val transaction = childFragmentManager.beginTransaction()
+        _fragments.forEachIndexed { i, fragment ->
+            if (i == index) {
+                transaction.show(fragment)
+            } else {
+                transaction.hide(fragment)
+            }
+        }
+        transaction.commit()
     }
 
     private fun _setDrawer() {
