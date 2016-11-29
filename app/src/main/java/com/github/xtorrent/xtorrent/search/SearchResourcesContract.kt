@@ -16,5 +16,8 @@ interface SearchResourcesContract {
         fun setContentView(list: List<Pair<Resource, List<ResourceItem>>>)
     }
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter {
+        fun setUrl(url: String)
+        fun setKeyword(keyword: String)
+    }
 }

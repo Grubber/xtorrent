@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
 import com.github.xtorrent.xtorrent.XApplication
@@ -19,10 +20,14 @@ import javax.inject.Inject
 class SearchResourcesActivity : AppCompatActivity() {
     companion object {
         private val EXTRA_URL = "url"
+        private val EXTRA_KEYWORD = "keyword"
 
-        fun start(context: Context, url: String) {
+        fun start(context: Context, url: String?, keyword: String) {
             val intent = Intent(context, SearchResourcesActivity::class.java)
-            intent.putExtra(EXTRA_URL, url)
+            url?.let {
+                intent.putExtra(EXTRA_URL, url)
+            }
+            intent.putExtra(EXTRA_KEYWORD, keyword)
             context.startActivity(intent)
         }
     }
@@ -39,14 +44,23 @@ class SearchResourcesActivity : AppCompatActivity() {
         SearchAdapter(this)
     }
 
+    private val _url by lazy {
+        intent.getStringExtra(EXTRA_URL)
+    }
+    private val _keyword by lazy {
+        intent.getStringExtra(EXTRA_KEYWORD)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_content_with_search)
 
         _setSearchView()
+        _replaceFragment(_url, _keyword)
+    }
 
-        val url = intent.getStringExtra(EXTRA_URL)
-        val fragment = SearchResourcesFragment.newInstance(url)
+    private fun _replaceFragment(url: String?, keyword: String) {
+        val fragment = SearchResourcesFragment.newInstance(url, keyword)
         XApplication.from(this)
                 .searchResourcesRepositoryComponent
                 .plus(SearchResourcesPresenterModule(fragment))
@@ -60,13 +74,21 @@ class SearchResourcesActivity : AppCompatActivity() {
         _searchView.setArrowOnly(false)
         _searchView.setVoice(false)
 
+        _keyword?.let {
+            _searchView.textOnly = it
+            _searchHistoryTable.addItem(SearchItem(it))
+        }
         _searchView.setHint(R.string.hint_search)
         _searchView.setOnMenuClickListener {
             finish()
         }
         _searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                _searchHistoryTable.addItem(SearchItem(query))
+                query?.let {
+                    _searchHistoryTable.addItem(SearchItem(it))
+                    _searchView.close(true)
+                    _replaceFragment(null, it)
+                }
                 return true
             }
 
@@ -76,7 +98,11 @@ class SearchResourcesActivity : AppCompatActivity() {
         })
 
         _searchAdapter.addOnItemClickListener { view, position ->
-            // TODO
+            val textView = view.findViewById(R.id.textView_item_text) as TextView
+            val query = textView.text.toString()
+            _searchView.textOnly = query
+            _searchView.close(true)
+            _replaceFragment(null, query)
         }
 
         _searchView.adapter = _searchAdapter

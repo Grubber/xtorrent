@@ -14,8 +14,8 @@ abstract class Resource : ResourceModel {
         }
         val FACTORY = ResourceModel.Factory(_creator)
 
-        fun create(url: String, title: String, magnet: String, type: String, size: String, files: Long,
-                   downloads: Long, updated: String, created: String): Resource {
+        fun create(url: String, title: String, magnet: String, type: String, size: String, files: String,
+                   downloads: String, updated: String, created: String): Resource {
             return _creator.create(url, title, magnet, type, size, files, downloads, updated, created)
         }
     }

@@ -4,8 +4,8 @@ CREATE TABLE resource (
     magnet TEXT,
     type TEXT NOT NULL,
     size TEXT NOT NULL,
-    files INTEGER NOT NULL,
-    downloads INTEGER NOT NULL,
+    files TEXT NOT NULL,
+    downloads TEXT NOT NULL,
     updated TEXT NOT NULL,
     created TEXT NOT NULL
 );

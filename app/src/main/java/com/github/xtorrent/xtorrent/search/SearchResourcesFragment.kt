@@ -15,6 +15,7 @@ import com.github.xtorrent.xtorrent.base.ContentFragment
 import com.github.xtorrent.xtorrent.base.HeaderRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.search.model.Resource
 import com.github.xtorrent.xtorrent.search.model.ResourceItem
+import com.github.xtorrent.xtorrent.search.view.ResourceInfoView
 import com.github.xtorrent.xtorrent.search.view.ResourceItemView
 import java.util.*
 
@@ -24,11 +25,13 @@ import java.util.*
 class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View {
     companion object {
         private val EXTRA_URL = "url"
+        private val EXTRA_KEYWORD = "keyword"
 
-        fun newInstance(url: String): SearchResourcesFragment {
+        fun newInstance(url: String?, keyword: String): SearchResourcesFragment {
             val fragment = SearchResourcesFragment()
             val args = Bundle()
             args.putString(EXTRA_URL, url)
+            args.putString(EXTRA_KEYWORD, keyword)
             fragment.arguments = args
             return fragment
         }
@@ -45,6 +48,9 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
     private val _url by lazy {
         arguments.getString(EXTRA_URL)
     }
+    private val _keyword by lazy {
+        arguments.getString(EXTRA_KEYWORD)
+    }
 
     private val _adapter by lazy {
         SearchResourceItemAdapter(context)
@@ -56,6 +62,11 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
         _recyclerView.layoutManager = LinearLayoutManager(context)
         _recyclerView.adapter = _adapter
 
+        if (_url != null) {
+            _presenter.setUrl(_url)
+        } else {
+            _presenter.setKeyword(_keyword)
+        }
         _presenter.subscribe()
     }
 
@@ -81,7 +92,7 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
     }
 
     override fun onRetry() {
-        // TODO
+        _presenter.subscribe()
     }
 
     override fun onDestroy() {
@@ -113,7 +124,24 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
             }
 
             holder.descriptionContainer.removeAllViews()
-            // TODO
+            val typeView = ResourceInfoView(context)
+            typeView.setText(item.first.type())
+            holder.descriptionContainer.addView(typeView)
+            val filesView = ResourceInfoView(context)
+            filesView.setText(item.first.files())
+            holder.descriptionContainer.addView(filesView)
+            val sizeView = ResourceInfoView(context)
+            sizeView.setText(item.first.size())
+            holder.descriptionContainer.addView(sizeView)
+            val downloadsView = ResourceInfoView(context)
+            downloadsView.setText(item.first.downloads())
+            holder.descriptionContainer.addView(downloadsView)
+            val updatedView = ResourceInfoView(context)
+            updatedView.setText(item.first.updated())
+            holder.descriptionContainer.addView(updatedView)
+            val createdView = ResourceInfoView(context)
+            createdView.setText(item.first.created())
+            holder.descriptionContainer.addView(createdView)
 
             holder.itemView.setOnClickListener {
                 // TODO

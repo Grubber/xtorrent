@@ -11,18 +11,21 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
 import com.github.xtorrent.xtorrent.base.XFragment
 import com.github.xtorrent.xtorrent.feedback.FeedbackActivity
 import com.github.xtorrent.xtorrent.home.HomeFragment
 import com.github.xtorrent.xtorrent.movie.MovieFragment
+import com.github.xtorrent.xtorrent.search.SearchResourcesActivity
 import com.github.xtorrent.xtorrent.settings.SettingsActivity
 import com.github.xtorrent.xtorrent.trend.TrendFragment
 import com.lapism.searchview.SearchAdapter
 import com.lapism.searchview.SearchHistoryTable
 import com.lapism.searchview.SearchItem
 import com.lapism.searchview.SearchView
+
 
 /**
  * Created by zhihao.zeng on 16/11/29.
@@ -87,7 +90,10 @@ class MainFragment : XFragment() {
         }
         _searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                _searchHistoryTable.addItem(SearchItem(query))
+                query?.let {
+                    _searchHistoryTable.addItem(SearchItem(it))
+                    SearchResourcesActivity.start(context, null, it)
+                }
                 return true
             }
 
@@ -97,7 +103,10 @@ class MainFragment : XFragment() {
         })
 
         _searchAdapter.addOnItemClickListener { view, position ->
-            // TODO
+            val textView = view.findViewById(R.id.textView_item_text) as TextView
+            val query = textView.text.toString()
+            _searchView.textOnly = query
+            SearchResourcesActivity.start(context, null, query)
         }
 
         _searchView.adapter = _searchAdapter

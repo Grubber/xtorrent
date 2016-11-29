@@ -22,10 +22,21 @@ class SearchResourcesPresenter @Inject constructor(private val repository: Searc
         CompositeSubscription()
     }
 
+    private var _url: String? = null
+    private var _keyword: String? = null
+
+    override fun setUrl(url: String) {
+        _url = url
+    }
+
+    override fun setKeyword(keyword: String) {
+        _keyword = keyword
+    }
+
     override fun subscribe() {
         _binder.clear()
 
-        _binder += repository.getSearchResources()
+        _binder += repository.getSearchResources(_url, _keyword)
                 .applySchedulers()
                 .bind {
                     next {

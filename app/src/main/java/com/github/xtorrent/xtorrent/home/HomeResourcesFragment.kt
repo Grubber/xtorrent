@@ -120,7 +120,7 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
                 View.VISIBLE
             }
             holder.itemView.setOnClickListener {
-                SearchResourcesActivity.start(context, items[position].url())
+                SearchResourcesActivity.start(context, items[position].url(), items[position].title())
             }
         }
 

@@ -1,18 +1,56 @@
 package com.github.xtorrent.xtorrent.search.source.remote
 
+import com.github.xtorrent.xtorrent.core.BASE_URL
 import com.github.xtorrent.xtorrent.search.model.Resource
 import com.github.xtorrent.xtorrent.search.model.ResourceItem
 import com.github.xtorrent.xtorrent.search.source.SearchResourcesDataSource
+import org.jsoup.Jsoup
 import rx.Observable
 import rx.lang.kotlin.emptyObservable
+import rx.lang.kotlin.observable
 
 /**
  * Created by zhihao.zeng on 16/11/29.
  */
 class SearchResourcesRemoteDataSource() : SearchResourcesDataSource {
-    override fun getSearchResources(): Observable<List<Pair<Resource, List<ResourceItem>>>> {
-        // TODO
-        return emptyObservable()
+    override fun getSearchResources(url: String?, keyword: String?): Observable<List<Pair<Resource, List<ResourceItem>>>> {
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    val searchUrl = url ?: "$BASE_URL/s/$keyword" // TODO 中文问题解决
+                    val document = Jsoup.connect(searchUrl.replace(" ", "%20")).get()
+                    val nodes = document.getElementsByClass("result-item")
+                    val list = nodes.map {
+                        val titleNode = it.select("a").first()
+                        val url = titleNode.attr("abs:href")
+                        val title = titleNode.text()
+
+                        val infoNode = it.getElementsByClass("info").first().getElementsByTag("span")
+                        val type = infoNode[0].text()
+                        val files = infoNode[1].text()
+                        val size = infoNode[2].text()
+                        val downloads = infoNode[3].text()
+                        val updated = infoNode[4].text()
+                        val created = infoNode[5].text()
+
+                        val resource = Resource.create(url, title, "", type, size, files, downloads, updated, created)
+
+                        val filesNode = it.getElementsByClass("files")
+                        val resourceItems = filesNode?.first()
+                                ?.getElementsByClass("inline")
+                                ?.map {
+                                    ResourceItem.create(it.text(), url)
+                                } ?: arrayListOf()
+                        Pair(resource, resourceItems)
+                    }
+
+                    it.onNext(list)
+                    it.onCompleted()
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
     }
 
     override fun getSearchResource(url: String): Observable<Pair<Resource, List<ResourceItem>>> {
