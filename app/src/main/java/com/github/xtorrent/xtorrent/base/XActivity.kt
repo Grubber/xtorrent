@@ -33,6 +33,6 @@ abstract class XActivity : RxAppCompatActivity() {
     }
 
     fun setTitle(title: String) {
-        toolbar.title = title
+        supportActionBar?.title = title
     }
 }

@@ -14,8 +14,10 @@ import android.view.ViewGroup
 import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
 import com.github.xtorrent.xtorrent.base.XFragment
+import com.github.xtorrent.xtorrent.feedback.FeedbackActivity
 import com.github.xtorrent.xtorrent.home.HomeFragment
 import com.github.xtorrent.xtorrent.movie.MovieFragment
+import com.github.xtorrent.xtorrent.settings.SettingsActivity
 import com.github.xtorrent.xtorrent.trend.TrendFragment
 import com.lapism.searchview.SearchAdapter
 import com.lapism.searchview.SearchHistoryTable
@@ -58,6 +60,8 @@ class MainFragment : XFragment() {
         )
     }
 
+    private var _checkItemId: Int = R.id.homeMenu
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -67,7 +71,12 @@ class MainFragment : XFragment() {
 
         _initFragments()
         _replaceContentFrame(0)
-        _navigationView.setCheckedItem(R.id.homeMenu)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        _navigationView.setCheckedItem(_checkItemId)
     }
 
     private fun _setSearchView() {
@@ -104,11 +113,16 @@ class MainFragment : XFragment() {
                 R.id.trend -> index = 1
 
                 R.id.movie -> index = 2
+
+                R.id.settings -> SettingsActivity.start(context)
+
+                R.id.feedback -> FeedbackActivity.start(context)
             }
 
-            if (!it.isChecked) {
+            if (it.itemId != R.id.settings && it.itemId != R.id.feedback && !it.isChecked) {
                 _replaceContentFrame(index)
                 it.isChecked = true
+                _checkItemId = it.itemId
             }
             _drawerLayout.closeDrawer(GravityCompat.START)
             true
