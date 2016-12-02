@@ -50,7 +50,7 @@ class HomeResourcesRemoteDataSource : HomeResourcesDataSource {
         return nodes.map {
             val link = it.select("a").first()
             val title = link.text()
-            val url = link.attr("abs:href")
+            val url = link.attr("href")
             val description = it.select("div")[1].text()
             HomeResource.create(title, description, url, type)
         }
@@ -61,13 +61,12 @@ class HomeResourcesRemoteDataSource : HomeResourcesDataSource {
         val content = document.getElementById("newest")
         val links = content.getElementsByTag("a")
         return links.map {
-            HomeResource.create(it.text(), null, it.attr("abs:href"), HomeResource.Type.NEWLY)
+            HomeResource.create(it.text(), null, it.attr("href"), HomeResource.Type.NEWLY)
         }
     }
 
     override fun getHomeResource(url: String): Observable<HomeResource> {
         // TODO
-
         return emptyObservable()
     }
 

@@ -11,8 +11,8 @@ import javax.inject.Inject
 @SearchResourcesScope
 class SearchResourcesRepository @Inject constructor(private @LocalSearchResources val localDataSource: SearchResourcesDataSource,
                                                     private @RemoteSearchResources val remoteDataSource: SearchResourcesDataSource) : SearchResourcesDataSource {
-    override fun getSearchResources(url: String?, keyword: String?): Observable<List<Pair<Resource, List<ResourceItem>>>> {
-        return remoteDataSource.getSearchResources(url, keyword)
+    override fun getSearchResources(keyword: String): Observable<List<Pair<Resource, List<ResourceItem>>>> {
+        return remoteDataSource.getSearchResources(keyword)
     }
 
     override fun getSearchResource(url: String): Observable<Pair<Resource, List<ResourceItem>>> {

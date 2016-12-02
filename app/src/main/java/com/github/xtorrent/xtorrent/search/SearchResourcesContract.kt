@@ -17,7 +17,6 @@ interface SearchResourcesContract {
     }
 
     interface Presenter : BasePresenter {
-        fun setUrl(url: String)
         fun setKeyword(keyword: String)
     }
 }

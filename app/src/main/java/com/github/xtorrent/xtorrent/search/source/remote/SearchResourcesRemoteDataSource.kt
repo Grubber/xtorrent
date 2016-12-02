@@ -8,17 +8,18 @@ import org.jsoup.Jsoup
 import rx.Observable
 import rx.lang.kotlin.emptyObservable
 import rx.lang.kotlin.observable
+import java.net.URLEncoder
 
 /**
  * Created by zhihao.zeng on 16/11/29.
  */
 class SearchResourcesRemoteDataSource() : SearchResourcesDataSource {
-    override fun getSearchResources(url: String?, keyword: String?): Observable<List<Pair<Resource, List<ResourceItem>>>> {
+    override fun getSearchResources(keyword: String): Observable<List<Pair<Resource, List<ResourceItem>>>> {
         return observable {
             if (!it.isUnsubscribed) {
                 try {
-                    val searchUrl = url ?: "$BASE_URL/s/$keyword" // TODO 中文问题解决
-                    val document = Jsoup.connect(searchUrl.replace(" ", "%20")).get()
+                    val searchUrl = "$BASE_URL/s/${URLEncoder.encode(keyword, "utf-8")}"
+                    val document = Jsoup.connect(searchUrl).get()
                     val nodes = document.getElementsByClass("result-item")
                     val list = nodes.map {
                         val titleNode = it.select("a").first()

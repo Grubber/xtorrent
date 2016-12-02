@@ -17,6 +17,7 @@ import com.github.xtorrent.xtorrent.home.model.HomeResource
 import com.github.xtorrent.xtorrent.search.SearchResourcesActivity
 import com.jakewharton.rxbinding.support.v4.widget.refreshes
 import java.util.*
+import java.util.regex.Pattern
 
 /**
  * Created by zhihao.zeng on 16/11/29.
@@ -112,16 +113,23 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
 
         override fun onBindBasicItemView(holder: RecyclerView.ViewHolder, position: Int) {
             holder as ResourceItemViewHolder
-            holder.titleView.text = items[position].title()
-            holder.descriptionView.text = items[position].description()
+            val item = items[position]
+            holder.titleView.text = item.title()
+            holder.descriptionView.text = item.description()
             holder.descriptionView.visibility = if (type == HomeResource.Type.NEWLY) {
                 View.GONE
             } else {
                 View.VISIBLE
             }
             holder.itemView.setOnClickListener {
-                SearchResourcesActivity.start(context, items[position].url(), items[position].title())
+                val matcher = _pattern.matcher(item.url())
+                if (matcher.find())
+                    SearchResourcesActivity.start(context, matcher.group(1))
             }
+        }
+
+        private val _pattern by lazy {
+            Pattern.compile("/s/(.*)(___)")
         }
 
         override val basicItemCount: Int

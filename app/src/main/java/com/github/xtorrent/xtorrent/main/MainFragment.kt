@@ -92,7 +92,7 @@ class MainFragment : XFragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
                     _searchHistoryTable.addItem(SearchItem(it))
-                    SearchResourcesActivity.start(context, null, it)
+                    SearchResourcesActivity.start(context, it)
                 }
                 return true
             }
@@ -106,7 +106,7 @@ class MainFragment : XFragment() {
             val textView = view.findViewById(R.id.textView_item_text) as TextView
             val query = textView.text.toString()
             _searchView.textOnly = query
-            SearchResourcesActivity.start(context, null, query)
+            SearchResourcesActivity.start(context, query)
         }
 
         _searchView.adapter = _searchAdapter

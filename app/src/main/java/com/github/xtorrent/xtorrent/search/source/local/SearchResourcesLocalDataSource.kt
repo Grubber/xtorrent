@@ -10,7 +10,7 @@ import rx.lang.kotlin.emptyObservable
  * Created by zhihao.zeng on 16/11/29.
  */
 class SearchResourcesLocalDataSource : SearchResourcesDataSource {
-    override fun getSearchResources(url: String?, keyword: String?): Observable<List<Pair<Resource, List<ResourceItem>>>> {
+    override fun getSearchResources(keyword: String): Observable<List<Pair<Resource, List<ResourceItem>>>> {
         // Ignored
         return emptyObservable()
     }

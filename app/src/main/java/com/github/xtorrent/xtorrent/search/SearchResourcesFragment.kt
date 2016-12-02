@@ -24,13 +24,11 @@ import java.util.*
  */
 class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View {
     companion object {
-        private val EXTRA_URL = "url"
         private val EXTRA_KEYWORD = "keyword"
 
-        fun newInstance(url: String?, keyword: String): SearchResourcesFragment {
+        fun newInstance(keyword: String): SearchResourcesFragment {
             val fragment = SearchResourcesFragment()
             val args = Bundle()
-            args.putString(EXTRA_URL, url)
             args.putString(EXTRA_KEYWORD, keyword)
             fragment.arguments = args
             return fragment
@@ -45,9 +43,6 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
 
     private lateinit var _presenter: SearchResourcesContract.Presenter
 
-    private val _url by lazy {
-        arguments.getString(EXTRA_URL)
-    }
     private val _keyword by lazy {
         arguments.getString(EXTRA_KEYWORD)
     }
@@ -62,11 +57,7 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
         _recyclerView.layoutManager = LinearLayoutManager(context)
         _recyclerView.adapter = _adapter
 
-        if (_url != null) {
-            _presenter.setUrl(_url)
-        } else {
-            _presenter.setKeyword(_keyword)
-        }
+        _presenter.setKeyword(_keyword)
         _presenter.subscribe()
     }
 

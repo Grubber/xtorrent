@@ -19,14 +19,10 @@ import javax.inject.Inject
  */
 class SearchResourcesActivity : AppCompatActivity() {
     companion object {
-        private val EXTRA_URL = "url"
         private val EXTRA_KEYWORD = "keyword"
 
-        fun start(context: Context, url: String?, keyword: String) {
+        fun start(context: Context, keyword: String) {
             val intent = Intent(context, SearchResourcesActivity::class.java)
-            url?.let {
-                intent.putExtra(EXTRA_URL, url)
-            }
             intent.putExtra(EXTRA_KEYWORD, keyword)
             context.startActivity(intent)
         }
@@ -44,9 +40,6 @@ class SearchResourcesActivity : AppCompatActivity() {
         SearchAdapter(this)
     }
 
-    private val _url by lazy {
-        intent.getStringExtra(EXTRA_URL)
-    }
     private val _keyword by lazy {
         intent.getStringExtra(EXTRA_KEYWORD)
     }
@@ -56,11 +49,11 @@ class SearchResourcesActivity : AppCompatActivity() {
         setContentView(R.layout.layout_content_with_search)
 
         _setSearchView()
-        _replaceFragment(_url, _keyword)
+        _replaceFragment(_keyword)
     }
 
-    private fun _replaceFragment(url: String?, keyword: String) {
-        val fragment = SearchResourcesFragment.newInstance(url, keyword)
+    private fun _replaceFragment(keyword: String) {
+        val fragment = SearchResourcesFragment.newInstance(keyword)
         XApplication.from(this)
                 .searchResourcesRepositoryComponent
                 .plus(SearchResourcesPresenterModule(fragment))
@@ -87,7 +80,7 @@ class SearchResourcesActivity : AppCompatActivity() {
                 query?.let {
                     _searchHistoryTable.addItem(SearchItem(it))
                     _searchView.close(true)
-                    _replaceFragment(null, it)
+                    _replaceFragment(it)
                 }
                 return true
             }
@@ -102,7 +95,7 @@ class SearchResourcesActivity : AppCompatActivity() {
             val query = textView.text.toString()
             _searchView.textOnly = query
             _searchView.close(true)
-            _replaceFragment(null, query)
+            _replaceFragment(query)
         }
 
         _searchView.adapter = _searchAdapter

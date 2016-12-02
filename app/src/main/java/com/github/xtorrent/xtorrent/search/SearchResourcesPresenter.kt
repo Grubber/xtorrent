@@ -7,6 +7,7 @@ import com.github.xtorrent.xtorrent.utils.plusAssign
 import rx.subscriptions.CompositeSubscription
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 /**
  * Created by zhihao.zeng on 16/11/29.
@@ -22,12 +23,7 @@ class SearchResourcesPresenter @Inject constructor(private val repository: Searc
         CompositeSubscription()
     }
 
-    private var _url: String? = null
-    private var _keyword: String? = null
-
-    override fun setUrl(url: String) {
-        _url = url
-    }
+    private var _keyword by Delegates.notNull<String>()
 
     override fun setKeyword(keyword: String) {
         _keyword = keyword
@@ -36,7 +32,7 @@ class SearchResourcesPresenter @Inject constructor(private val repository: Searc
     override fun subscribe() {
         _binder.clear()
 
-        _binder += repository.getSearchResources(_url, _keyword)
+        _binder += repository.getSearchResources(_keyword)
                 .applySchedulers()
                 .bind {
                     next {
