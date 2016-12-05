@@ -24,7 +24,7 @@ class SearchResourcesRemoteDataSource() : SearchResourcesDataSource {
                     val list = nodes.map {
                         val titleNode = it.select("a").first()
                         val url = titleNode.attr("abs:href")
-                        val title = titleNode.text()
+                        val title = titleNode.html()
 
                         val infoNode = it.getElementsByClass("info").first().getElementsByTag("span")
                         val type = infoNode[0].text()

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -105,7 +106,11 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
         override fun onBindBasicItemView(holder: RecyclerView.ViewHolder, position: Int) {
             holder as SearchResourceItemViewHolder
             val item = items[position]
-            holder.titleView.text = item.first.title()
+
+            val title = item.first.title()
+                    .replace("<b>", "<b><font color=\"#EA4335\">")
+                    .replace("</b>", "</font></b>")
+            holder.titleView.text = Html.fromHtml(title)
 
             holder.itemContainer.removeAllViews()
             item.second.forEach {
