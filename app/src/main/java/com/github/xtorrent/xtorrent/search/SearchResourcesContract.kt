@@ -18,5 +18,6 @@ interface SearchResourcesContract {
 
     interface Presenter : BasePresenter {
         fun setKeyword(keyword: String)
+        fun setPageNumber(pageNumber: Int)
     }
 }

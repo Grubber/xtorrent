@@ -18,7 +18,6 @@ import com.github.xtorrent.xtorrent.search.model.Resource
 import com.github.xtorrent.xtorrent.search.model.ResourceItem
 import com.github.xtorrent.xtorrent.search.view.ResourceInfoView
 import com.github.xtorrent.xtorrent.search.view.ResourceItemView
-import java.util.*
 
 /**
  * Created by zhihao.zeng on 16/11/29.
@@ -57,6 +56,27 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
 
         _recyclerView.layoutManager = LinearLayoutManager(context)
         _recyclerView.adapter = _adapter
+        _recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                recyclerView?.let {
+                    // TODO if loading
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        val layoutManager = it.layoutManager as LinearLayoutManager
+                        val lastChildView = layoutManager.getChildAt(layoutManager.childCount - 1)
+                        val lastChildBottom = lastChildView.bottom + (lastChildView.layoutParams as RecyclerView.LayoutParams).bottomMargin
+                        val lastPosition = layoutManager.getPosition(lastChildView)
+                        val parentBottom = it.bottom - it.paddingBottom
+                        if (lastChildBottom == parentBottom && lastPosition == layoutManager.itemCount - 1) {
+                            // TODO pageNumber is 1
+                            val pageNumber = layoutManager.itemCount / 15 + 1
+                            _presenter.setPageNumber(pageNumber)
+                            _presenter.subscribe()
+                        }
+                    }
+                }
+            }
+        })
 
         _presenter.setKeyword(_keyword)
         _presenter.subscribe()
@@ -75,7 +95,8 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
     }
 
     override fun setContentView(list: List<Pair<Resource, List<ResourceItem>>>) {
-        _adapter.items = list as ArrayList<Pair<Resource, List<ResourceItem>>>
+        _adapter.items.addAll(list)
+        _adapter.notifyDataSetChanged()
         displayContentView()
     }
 
@@ -93,11 +114,7 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
     }
 
     class SearchResourceItemAdapter(private val context: Context) : HeaderRecyclerViewAdapter() {
-        var items = arrayListOf<Pair<Resource, List<ResourceItem>>>()
-            set(value) {
-                field = value
-                notifyDataSetChanged()
-            }
+        var items = mutableListOf<Pair<Resource, List<ResourceItem>>>()
 
         override fun onCreateBasicItemViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             return SearchResourceItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_search_resources, parent, false))

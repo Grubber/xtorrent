@@ -24,18 +24,24 @@ class SearchResourcesPresenter @Inject constructor(private val repository: Searc
     }
 
     private var _keyword by Delegates.notNull<String>()
+    private var _pageNumber = 1
 
     override fun setKeyword(keyword: String) {
         _keyword = keyword
     }
 
+    override fun setPageNumber(pageNumber: Int) {
+        _pageNumber = pageNumber
+    }
+
     override fun subscribe() {
         _binder.clear()
 
-        _binder += repository.getSearchResources(_keyword)
+        _binder += repository.getSearchResources(_keyword, _pageNumber)
                 .applySchedulers()
                 .bind {
                     next {
+                        // TODO only set content view, empty view could set in adpater
                         if (it == null || it.isEmpty()) {
                             view.setEmptyView()
                         } else {

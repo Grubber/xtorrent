@@ -8,17 +8,18 @@ import org.jsoup.Jsoup
 import rx.Observable
 import rx.lang.kotlin.emptyObservable
 import rx.lang.kotlin.observable
+import timber.log.Timber
 import java.net.URLEncoder
 
 /**
  * Created by zhihao.zeng on 16/11/29.
  */
 class SearchResourcesRemoteDataSource() : SearchResourcesDataSource {
-    override fun getSearchResources(keyword: String): Observable<List<Pair<Resource, List<ResourceItem>>>> {
+    override fun getSearchResources(keyword: String, pageNumber: Int): Observable<List<Pair<Resource, List<ResourceItem>>>> {
         return observable {
             if (!it.isUnsubscribed) {
                 try {
-                    val searchUrl = "$BASE_URL/s/${URLEncoder.encode(keyword, "utf-8")}"
+                    val searchUrl = "$BASE_URL/s/${URLEncoder.encode(keyword, "utf-8")}__1_$pageNumber"
                     val document = Jsoup.connect(searchUrl).get()
                     val nodes = document.getElementsByClass("result-item")
                     val list = nodes.map {
@@ -44,6 +45,8 @@ class SearchResourcesRemoteDataSource() : SearchResourcesDataSource {
                                 } ?: arrayListOf()
                         Pair(resource, resourceItems)
                     }
+
+                    Timber.d("### load url is $searchUrl, data size is ${list.size}")
 
                     it.onNext(list)
                     it.onCompleted()
