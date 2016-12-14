@@ -12,7 +12,7 @@ import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
 import com.github.xtorrent.xtorrent.base.ContentFragment
-import com.github.xtorrent.xtorrent.base.HeaderRecyclerViewAdapter
+import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.home.model.HomeResource
 import com.github.xtorrent.xtorrent.search.SearchResourcesActivity
 import com.jakewharton.rxbinding.support.v4.widget.refreshes
@@ -100,7 +100,7 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
         _presenter.setType(_type)
     }
 
-    class ResourceItemAdapter(val type: HomeResource.Type, val context: Context) : HeaderRecyclerViewAdapter() {
+    class ResourceItemAdapter(val type: HomeResource.Type, val context: Context) : PagingRecyclerViewAdapter() {
         var items = arrayListOf<HomeResource>()
             set(value) {
                 field = value

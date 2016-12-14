@@ -1,5 +1,7 @@
 package com.github.xtorrent.xtorrent.search
 
+import com.github.xtorrent.xtorrent.search.model.Resource
+import com.github.xtorrent.xtorrent.search.model.ResourceItem
 import com.github.xtorrent.xtorrent.search.source.SearchResourcesRepository
 import com.github.xtorrent.xtorrent.utils.applySchedulers
 import com.github.xtorrent.xtorrent.utils.bind
@@ -26,6 +28,10 @@ class SearchResourcesPresenter @Inject constructor(private val repository: Searc
     private var _keyword by Delegates.notNull<String>()
     private var _pageNumber = 1
 
+    private val _data by lazy {
+        arrayListOf<Pair<Resource, List<ResourceItem>>>()
+    }
+
     override fun setKeyword(keyword: String) {
         _keyword = keyword
     }
@@ -42,16 +48,29 @@ class SearchResourcesPresenter @Inject constructor(private val repository: Searc
                 .bind {
                     next {
                         // TODO only set content view, empty view could set in adpater
-                        if (it == null || it.isEmpty()) {
-                            view.setEmptyView()
+                        if (it == null) {
+                            if (_data.isEmpty()) {
+                                view.setEmptyView()
+                            } else {
+                                view.setContentView(null, false, true)
+                            }
                         } else {
-                            view.setContentView(it)
+                            _data.addAll(it)
+                            if (_pageNumber > 2) {
+                                view.setContentView(it, false, true)
+                            } else {
+                                view.setContentView(it)
+                            }
                         }
                     }
 
                     error {
                         Timber.d("### error is ${it?.message}")
-                        view.setErrorView()
+                        if (_data.isEmpty()) {
+                            view.setErrorView()
+                        } else {
+                            view.setContentView(null, true)
+                        }
                     }
                 }
     }

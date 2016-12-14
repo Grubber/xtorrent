@@ -13,7 +13,7 @@ import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
 import com.github.xtorrent.xtorrent.base.ContentFragment
-import com.github.xtorrent.xtorrent.base.HeaderRecyclerViewAdapter
+import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.search.model.Resource
 import com.github.xtorrent.xtorrent.search.model.ResourceItem
 import com.github.xtorrent.xtorrent.search.view.ResourceInfoView
@@ -48,7 +48,7 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
     }
 
     private val _adapter by lazy {
-        SearchResourceItemAdapter(context)
+        SearchResourceItemAdapter(context, _presenter)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -56,27 +56,6 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
 
         _recyclerView.layoutManager = LinearLayoutManager(context)
         _recyclerView.adapter = _adapter
-        _recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                recyclerView?.let {
-                    // TODO if loading
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        val layoutManager = it.layoutManager as LinearLayoutManager
-                        val lastChildView = layoutManager.getChildAt(layoutManager.childCount - 1)
-                        val lastChildBottom = lastChildView.bottom + (lastChildView.layoutParams as RecyclerView.LayoutParams).bottomMargin
-                        val lastPosition = layoutManager.getPosition(lastChildView)
-                        val parentBottom = it.bottom - it.paddingBottom
-                        if (lastChildBottom == parentBottom && lastPosition == layoutManager.itemCount - 1) {
-                            // TODO pageNumber is 1
-                            val pageNumber = layoutManager.itemCount / 15 + 1
-                            _presenter.setPageNumber(pageNumber)
-                            _presenter.subscribe()
-                        }
-                    }
-                }
-            }
-        })
 
         _presenter.setKeyword(_keyword)
         _presenter.subscribe()
@@ -94,8 +73,26 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
         displayEmptyView()
     }
 
-    override fun setContentView(list: List<Pair<Resource, List<ResourceItem>>>) {
-        _adapter.items.addAll(list)
+    override fun setContentView(list: List<Pair<Resource, List<ResourceItem>>>?,
+                                loadedError: Boolean,
+                                loadedComplete: Boolean) {
+        if (list != null) {
+            _adapter.items.addAll(list)
+        }
+        val loadingState = if (list == null) {
+            if (loadedError) {
+                PagingRecyclerViewAdapter.STATE_LOADING_FAILED
+            } else {
+                PagingRecyclerViewAdapter.STATE_LOADING_COMPLETE
+            }
+        } else {
+            if (loadedComplete) {
+                PagingRecyclerViewAdapter.STATE_LOADING_COMPLETE
+            } else {
+                PagingRecyclerViewAdapter.STATE_LOADING_SUCCEED
+            }
+        }
+        _adapter.setLoadingState(loadingState)
         _adapter.notifyDataSetChanged()
         displayContentView()
     }
@@ -113,8 +110,8 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
         super.onDestroy()
     }
 
-    class SearchResourceItemAdapter(private val context: Context) : HeaderRecyclerViewAdapter() {
-        var items = mutableListOf<Pair<Resource, List<ResourceItem>>>()
+    class SearchResourceItemAdapter(private val context: Context, private val presenter: SearchResourcesContract.Presenter) : PagingRecyclerViewAdapter() {
+        var items = arrayListOf<Pair<Resource, List<ResourceItem>>>()
 
         override fun onCreateBasicItemViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             return SearchResourceItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_search_resources, parent, false))
@@ -163,6 +160,35 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
 
         override val basicItemCount: Int
             get() = items.size
+
+        override fun hasHeader(): Boolean {
+            return false
+        }
+
+        override fun onCreateHeaderViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
+            return object : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.header, parent, false)) {}
+        }
+
+        override fun hasFooter(): Boolean {
+            return false
+        }
+
+        override fun onCreateFooterViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
+            return object : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.footer, parent, false)) {}
+        }
+
+        override fun shouldLoadingMore(): Boolean {
+            return true
+        }
+
+        override fun getLoadCount(): Int {
+            return 15
+        }
+
+        override fun onLoadMore(pageNumber: Int) {
+            presenter.setPageNumber(pageNumber)
+            presenter.subscribe()
+        }
     }
 
     class SearchResourceItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
