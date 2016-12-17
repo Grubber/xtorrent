@@ -8,6 +8,7 @@ import com.github.xtorrent.xtorrent.home.source.HomeResourcesRepositoryComponent
 import com.github.xtorrent.xtorrent.home.source.HomeResourcesRepositoryModule
 import com.github.xtorrent.xtorrent.search.source.SearchResourcesRepositoryComponent
 import com.github.xtorrent.xtorrent.search.source.SearchResourcesRepositoryModule
+import com.squareup.leakcanary.LeakCanary
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -32,8 +33,8 @@ class XApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        _setupObjectGraph()
         _setupAnalytics()
+        _setupObjectGraph()
 
         databaseManager.open()
     }
@@ -51,6 +52,10 @@ class XApplication : MultiDexApplication() {
     }
 
     private fun _setupAnalytics() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return
+        }
+        LeakCanary.install(this)
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }

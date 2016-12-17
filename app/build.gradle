@@ -46,6 +46,7 @@ buildscript {
     ext.kotlin_version = '1.0.5-2'
     ext.dagger_version = '2.2'
     ext.autovalue_version = '1.2'
+    ext.leakcanary_version = '1.5'
 
     repositories {
         jcenter()
@@ -64,6 +65,10 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
 
     compile 'com.jakewharton.timber:timber:3.1.0'
     compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
