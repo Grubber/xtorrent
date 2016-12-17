@@ -77,10 +77,6 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
         _presenter.subscribe()
     }
 
-    override fun setLoadingView() {
-        displayLoadingView()
-    }
-
     override fun setErrorView() {
         displayErrorView()
     }

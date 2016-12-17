@@ -6,7 +6,6 @@ import com.github.xtorrent.xtorrent.search.model.ResourceItem
 import com.github.xtorrent.xtorrent.search.source.SearchResourcesDataSource
 import org.jsoup.Jsoup
 import rx.Observable
-import rx.lang.kotlin.emptyObservable
 import rx.lang.kotlin.observable
 import timber.log.Timber
 import java.net.URLEncoder
@@ -58,8 +57,39 @@ class SearchResourcesRemoteDataSource() : SearchResourcesDataSource {
     }
 
     override fun getSearchResource(url: String): Observable<Pair<Resource, List<ResourceItem>>> {
-        // TODO
-        return emptyObservable()
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    val document = Jsoup.connect(url).get()
+                    val node = document.getElementsByClass("detail")[0]
+                    val titleNode = node.select("a").first()
+                    val title = titleNode.text()
+                    val magnet = node.select("a")[1].text()
+
+                    val infoNode = node.getElementsByTag("td")
+                    val type = infoNode[0].text()
+                    val size = infoNode[1].text()
+                    val files = infoNode[2].text()
+                    val downloads = infoNode[3].text()
+                    val updated = infoNode[4].text()
+                    val created = infoNode[5].text()
+
+                    val resource = Resource.create(url, title, magnet, type, size, files, downloads, updated, created)
+
+                    val filesNode = node.getElementsByTag("ul")
+                    val resourceItems = filesNode?.first()
+                            ?.getElementsByClass("inline")
+                            ?.map {
+                                ResourceItem.create(it.text(), url)
+                            } ?: arrayListOf()
+
+                    it.onNext(Pair(resource, resourceItems))
+                    it.onCompleted()
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
     }
 
     override fun saveSearchResource(resource: Resource) {

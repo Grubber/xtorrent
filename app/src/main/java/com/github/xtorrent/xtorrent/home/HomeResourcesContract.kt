@@ -9,7 +9,6 @@ import com.github.xtorrent.xtorrent.home.model.HomeResource
  */
 interface HomeResourcesContract {
     interface View : BaseView<Presenter> {
-        fun setLoadingView()
         fun setErrorView()
         fun setContentView(resources: List<HomeResource>)
         fun stopRefreshing()

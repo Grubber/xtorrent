@@ -17,7 +17,7 @@ class SearchResourcesLocalDataSource : SearchResourcesDataSource {
 
     override fun getSearchResource(url: String): Observable<Pair<Resource, List<ResourceItem>>> {
         // TODO
-        return emptyObservable()
+        return Observable.just(null)
     }
 
     override fun saveSearchResource(resource: Resource) {

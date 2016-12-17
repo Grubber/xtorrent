@@ -2,6 +2,8 @@ package com.github.xtorrent.xtorrent.search.source
 
 import com.github.xtorrent.xtorrent.search.SearchResourcesPresenterComponent
 import com.github.xtorrent.xtorrent.search.SearchResourcesPresenterModule
+import com.github.xtorrent.xtorrent.search.detail.SearchResourceDetailPresenterComponent
+import com.github.xtorrent.xtorrent.search.detail.SearchResourceDetailPresenterModule
 import dagger.Subcomponent
 
 /**
@@ -11,4 +13,5 @@ import dagger.Subcomponent
 @Subcomponent(modules = arrayOf(SearchResourcesRepositoryModule::class))
 interface SearchResourcesRepositoryComponent {
     fun plus(searchResourcesPresenterModule: SearchResourcesPresenterModule): SearchResourcesPresenterComponent
+    fun plus(searchResourceDetailPresenterModule: SearchResourceDetailPresenterModule): SearchResourceDetailPresenterComponent
 }

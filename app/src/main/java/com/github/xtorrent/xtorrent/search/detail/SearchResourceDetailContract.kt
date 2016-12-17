@@ -1,4 +1,4 @@
-package com.github.xtorrent.xtorrent.search
+package com.github.xtorrent.xtorrent.search.detail
 
 import com.github.xtorrent.xtorrent.base.BasePresenter
 import com.github.xtorrent.xtorrent.base.BaseView
@@ -8,14 +8,13 @@ import com.github.xtorrent.xtorrent.search.model.ResourceItem
 /**
  * Created by zhihao.zeng on 16/11/29.
  */
-interface SearchResourcesContract {
+interface SearchResourceDetailContract {
     interface View : BaseView<Presenter> {
         fun setErrorView()
-        fun setContentView(list: List<Pair<Resource, List<ResourceItem>>>? = null, loadedError: Boolean = false)
+        fun setContentView(data: Pair<Resource, List<ResourceItem>>)
     }
 
     interface Presenter : BasePresenter {
-        fun setKeyword(keyword: String)
-        fun setPageNumber(pageNumber: Int)
+        fun setUrl(url: String)
     }
 }

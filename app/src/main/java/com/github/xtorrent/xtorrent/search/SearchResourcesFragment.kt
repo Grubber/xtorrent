@@ -14,6 +14,7 @@ import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
 import com.github.xtorrent.xtorrent.base.ContentFragment
 import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
+import com.github.xtorrent.xtorrent.search.detail.SearchResourceDetailActivity
 import com.github.xtorrent.xtorrent.search.model.Resource
 import com.github.xtorrent.xtorrent.search.model.ResourceItem
 import com.github.xtorrent.xtorrent.search.view.ResourceInfoView
@@ -59,10 +60,6 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
 
         _presenter.setKeyword(_keyword)
         _presenter.subscribe()
-    }
-
-    override fun setLoadingView() {
-        displayLoadingView()
     }
 
     override fun setErrorView() {
@@ -135,7 +132,7 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
             holder.descriptionContainer.addView(createdView)
 
             holder.itemView.setOnClickListener {
-                // TODO
+                SearchResourceDetailActivity.start(context, item.first.title().replace("<b>", "").replace("</b>", ""), item.first.url())
             }
         }
 

@@ -16,12 +16,13 @@ class SearchResourcesRepository @Inject constructor(private @LocalSearchResource
     }
 
     override fun getSearchResource(url: String): Observable<Pair<Resource, List<ResourceItem>>> {
-        val localOb = localDataSource.getSearchResource(url)
+        val localOb = localDataSource.getSearchResource(url) // TODO
         val remoteOb = remoteDataSource.getSearchResource(url)
                 .doOnNext {
-                    localDataSource.saveSearchResource(it.first)
+//                    localDataSource.saveSearchResource(it.first)
                 }
         return Observable.concat(localOb, remoteOb)
+                .filter { it != null }
                 .first()
     }
 
