@@ -12,10 +12,7 @@ interface SearchResourcesContract {
     interface View : BaseView<Presenter> {
         fun setLoadingView()
         fun setErrorView()
-        fun setEmptyView()
-        fun setContentView(list: List<Pair<Resource, List<ResourceItem>>>? = null,
-                           loadedError: Boolean = false,
-                           loadedComplete: Boolean = false)
+        fun setContentView(list: List<Pair<Resource, List<ResourceItem>>>? = null, loadedError: Boolean = false)
     }
 
     interface Presenter : BasePresenter {

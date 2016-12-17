@@ -11,7 +11,6 @@ interface HomeResourcesContract {
     interface View : BaseView<Presenter> {
         fun setLoadingView()
         fun setErrorView()
-        fun setEmptyView()
         fun setContentView(resources: List<HomeResource>)
         fun stopRefreshing()
     }

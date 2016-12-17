@@ -47,17 +47,10 @@ class SearchResourcesPresenter @Inject constructor(private val repository: Searc
                 .applySchedulers()
                 .bind {
                     next {
-                        // TODO only set content view, empty view could set in adpater
-                        if (it == null) {
-                            if (_data.isEmpty()) {
-                                view.setEmptyView()
-                            } else {
-                                view.setContentView(null, false, true)
-                            }
-                        } else {
+                        if (it != null) {
                             _data.addAll(it)
-                            if (_pageNumber > 2) {
-                                view.setContentView(it, false, true)
+                            if (_pageNumber >= 10) {
+                                view.setContentView(arrayListOf())
                             } else {
                                 view.setContentView(it)
                             }

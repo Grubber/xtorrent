@@ -11,12 +11,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
+import com.github.xtorrent.xtorrent.base.BasicRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.base.ContentFragment
-import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.home.model.HomeResource
 import com.github.xtorrent.xtorrent.search.SearchResourcesActivity
 import com.jakewharton.rxbinding.support.v4.widget.refreshes
-import java.util.*
 import java.util.regex.Pattern
 
 /**
@@ -86,12 +85,8 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
         displayErrorView()
     }
 
-    override fun setEmptyView() {
-        displayEmptyView()
-    }
-
     override fun setContentView(resources: List<HomeResource>) {
-        _adapter.items = resources as ArrayList<HomeResource>
+        _adapter.addItems(resources)
         displayContentView()
     }
 
@@ -100,20 +95,14 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
         _presenter.setType(_type)
     }
 
-    class ResourceItemAdapter(val type: HomeResource.Type, val context: Context) : PagingRecyclerViewAdapter() {
-        var items = arrayListOf<HomeResource>()
-            set(value) {
-                field = value
-                notifyDataSetChanged()
-            }
-
+    class ResourceItemAdapter(val type: HomeResource.Type, val context: Context) : BasicRecyclerViewAdapter<HomeResource>() {
         override fun onCreateBasicItemViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             return ResourceItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_home_resources, parent, false))
         }
 
         override fun onBindBasicItemView(holder: RecyclerView.ViewHolder, position: Int) {
             holder as ResourceItemViewHolder
-            val item = items[position]
+            val item = getItem(position)
             holder.titleView.text = item.title()
             holder.descriptionView.text = item.description()
             holder.descriptionView.visibility = if (type == HomeResource.Type.NEWLY) {
@@ -123,17 +112,15 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
             }
             holder.itemView.setOnClickListener {
                 val matcher = _pattern.matcher(item.url())
-                if (matcher.find())
+                if (matcher.find()) {
                     SearchResourcesActivity.start(context, matcher.group(1))
+                }
             }
         }
 
         private val _pattern by lazy {
             Pattern.compile("/s/(.*)(___)")
         }
-
-        override val basicItemCount: Int
-            get() = items.size
     }
 
     class ResourceItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {

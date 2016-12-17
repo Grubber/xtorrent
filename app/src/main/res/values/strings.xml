@@ -2,7 +2,7 @@
     <string name="app_name">Xtorrent</string>
 
     <string name="text_empty">Empty</string>
-    <string name="text_error_tips">Network error</string>
+    <string name="text_error_tips">Network error. Click to reload.</string>
     <string name="button_retry">Retry</string>
 
     <string name="drawer_open">Open</string>

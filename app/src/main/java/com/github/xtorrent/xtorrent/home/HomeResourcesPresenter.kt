@@ -37,7 +37,7 @@ class HomeResourcesPresenter @Inject constructor(private val repository: HomeRes
                 .bind {
                     next {
                         if (it == null || it.isEmpty()) {
-                            view.setEmptyView()
+                            view.setErrorView()
                         } else {
                             view.setContentView(it)
                         }
