@@ -176,9 +176,11 @@ abstract class PagingRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.
     open fun onBindHeaderView(holder: RecyclerView.ViewHolder, position: Int) {
     }
 
-    open fun hasFooter(): Boolean = false
+    open fun hasFooter(): Boolean = true
 
-    open fun onCreateFooterViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? = null
+    open fun onCreateFooterViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return object : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_end, parent, false)) {}
+    }
 
     open fun onBindFooterView(holder: RecyclerView.ViewHolder, position: Int) {
     }

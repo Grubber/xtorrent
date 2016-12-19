@@ -4,6 +4,7 @@
     <string name="text_empty">Empty</string>
     <string name="text_error_tips">Network error. Click to reload.</string>
     <string name="button_retry">Retry</string>
+    <string name="text_end">&#045;&#032;The End&#032;&#045;</string>
 
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
