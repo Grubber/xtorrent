@@ -1,258 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/titleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/magnetView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="15sp" />
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/copyButton"
-            style="?android:attr/buttonBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/button_selector_green"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="@string/button_copy_magnet"
-            android:textColor="@color/colorWhite" />
+        <TextView
+            android:id="@+id/titleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/downloadButton"
-            style="?android:attr/buttonBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:background="@drawable/button_selector_green"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="@string/button_download_resource"
-            android:textColor="@color/colorWhite" />
-    </LinearLayout>
-
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="20dp"
-        android:background="#ddd">
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:text="@string/text_type"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/typeView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_marginTop="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:textColor="#333" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:text="@string/text_size"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/sizeView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:textColor="#333" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:text="@string/text_files"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/filesView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_marginTop="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:textColor="#333" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:text="@string/text_downloads"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/downloadsView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:textColor="#333" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:text="@string/text_updated"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/updatedView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_marginTop="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:textColor="#333" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:text="@string/text_created"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/createdView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:textColor="#333" />
-        </TableRow>
-    </TableLayout>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:drawSelectorOnTop="true"
-        android:foreground="?attr/selectableItemBackgroundBorderless">
+        <TextView
+            android:id="@+id/magnetView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:orientation="vertical">
+            android:layout_marginLeft="12dp"
+            android:orientation="horizontal">
 
-            <TextView
+            <Button
+                android:id="@+id/copyButton"
+                style="?android:attr/buttonBarStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:text="@string/text_include_files"
-                android:textColor="@color/colorBlack"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_height="32dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/button_selector_green"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/button_copy_magnet"
+                android:textColor="@color/colorWhite" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#ebebeb" />
+            <Button
+                android:id="@+id/downloadButton"
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:background="@drawable/button_selector_green"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/button_download_resource"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="20dp"
+            android:background="#ddd">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:background="@color/colorWhite"
+                    android:padding="5dp"
+                    android:text="@string/text_type"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/typeView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/colorWhite"
+                    android:padding="5dp"
+                    android:textColor="#333" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:background="@color/colorWhite"
+                    android:padding="5dp"
+                    android:text="@string/text_size"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sizeView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="1dp"
+                    android:background="@color/colorWhite"
+                    android:padding="5dp"
+                    android:textColor="#333" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:background="@color/colorWhite"
+                    android:padding="5dp"
+                    android:text="@string/text_files"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/filesView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/colorWhite"
+                    android:padding="5dp"
+                    android:textColor="#333" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:background="@color/colorWhite"
+                    android:padding="5dp"
+                    android:text="@string/text_downloads"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/downloadsView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="1dp"
+                    android:background="@color/colorWhite"
+                    android:padding="5dp"
+                    android:textColor="#333" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:background="@color/colorWhite"
+                    android:padding="5dp"
+                    android:text="@string/text_updated"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/updatedView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/colorWhite"
+                    android:padding="5dp"
+                    android:textColor="#333" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:background="@color/colorWhite"
+                    android:padding="5dp"
+                    android:text="@string/text_created"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/createdView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="1dp"
+                    android:background="@color/colorWhite"
+                    android:padding="5dp"
+                    android:textColor="#333" />
+            </TableRow>
+        </TableLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:drawSelectorOnTop="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless">
 
             <LinearLayout
-                android:id="@+id/itemContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginTop="6dp"
-                android:orientation="vertical" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="6dp"
+                    android:text="@string/text_include_files"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#ebebeb" />
+
+                <LinearLayout
+                    android:id="@+id/itemContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>
