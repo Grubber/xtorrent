@@ -4,7 +4,7 @@ import com.github.xtorrent.xtorrent.core.BASE_URL
 import com.github.xtorrent.xtorrent.search.model.Resource
 import com.github.xtorrent.xtorrent.search.model.ResourceItem
 import com.github.xtorrent.xtorrent.search.source.SearchResourcesDataSource
-import org.jsoup.Jsoup
+import com.github.xtorrent.xtorrent.utils.newJsoupConnection
 import rx.Observable
 import rx.lang.kotlin.observable
 import timber.log.Timber
@@ -19,7 +19,7 @@ class SearchResourcesRemoteDataSource() : SearchResourcesDataSource {
             if (!it.isUnsubscribed) {
                 try {
                     val searchUrl = "$BASE_URL/s/${URLEncoder.encode(keyword, "utf-8")}__1_$pageNumber"
-                    val document = Jsoup.connect(searchUrl).get()
+                    val document = newJsoupConnection(searchUrl).get()
                     val nodes = document.getElementsByClass("result-item")
                     val list = nodes.map {
                         val titleNode = it.select("a").first()
@@ -60,7 +60,7 @@ class SearchResourcesRemoteDataSource() : SearchResourcesDataSource {
         return observable {
             if (!it.isUnsubscribed) {
                 try {
-                    val document = Jsoup.connect(url).get()
+                    val document = newJsoupConnection(url).get()
                     val node = document.getElementsByClass("detail")[0]
                     val titleNode = node.select("a").first()
                     val title = titleNode.text()

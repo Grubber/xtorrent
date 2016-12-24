@@ -3,7 +3,7 @@ package com.github.xtorrent.xtorrent.home.source.remote
 import com.github.xtorrent.xtorrent.core.BASE_URL
 import com.github.xtorrent.xtorrent.home.model.HomeResource
 import com.github.xtorrent.xtorrent.home.source.HomeResourcesDataSource
-import org.jsoup.Jsoup
+import com.github.xtorrent.xtorrent.utils.newJsoupConnection
 import rx.Observable
 import rx.lang.kotlin.emptyObservable
 import rx.lang.kotlin.observable
@@ -44,7 +44,7 @@ class HomeResourcesRemoteDataSource : HomeResourcesDataSource {
             HomeResource.Type.HOT -> "hot"
             else -> "fashion"
         }
-        val document = Jsoup.connect(BASE_URL).get()
+        val document = newJsoupConnection(BASE_URL).get()
         val content = document.getElementById(contentId)
         val nodes = content.getElementsByClass("panel-item")
         return nodes.map {
@@ -57,7 +57,7 @@ class HomeResourcesRemoteDataSource : HomeResourcesDataSource {
     }
 
     private fun _getNewlyResources(): List<HomeResource> {
-        val document = Jsoup.connect(BASE_URL).get()
+        val document = newJsoupConnection(BASE_URL).get()
         val content = document.getElementById("newest")
         val links = content.getElementsByTag("a")
         return links.map {
