@@ -2,7 +2,10 @@ package com.github.xtorrent.xtorrent
 
 import android.content.Context
 import android.support.multidex.MultiDexApplication
-import com.github.xtorrent.xtorrent.core.di.*
+import com.github.xtorrent.xtorrent.core.di.AndroidModule
+import com.github.xtorrent.xtorrent.core.di.ApplicationComponent
+import com.github.xtorrent.xtorrent.core.di.DaggerApplicationComponent
+import com.github.xtorrent.xtorrent.core.di.DataModule
 import com.github.xtorrent.xtorrent.db.DatabaseManager
 import com.github.xtorrent.xtorrent.home.source.HomeResourcesRepositoryComponent
 import com.github.xtorrent.xtorrent.home.source.HomeResourcesRepositoryModule
@@ -43,7 +46,6 @@ class XApplication : MultiDexApplication() {
         applicationComponent = DaggerApplicationComponent.builder()
                 .androidModule(AndroidModule(this))
                 .dataModule(DataModule())
-                .utilsModule(UtilsModule())
                 .build()
         homeResourcesRepositoryComponent = applicationComponent.plus(HomeResourcesRepositoryModule())
         searchResourcesRepositoryComponent = applicationComponent.plus(SearchResourcesRepositoryModule())

@@ -7,4 +7,5 @@
     android:lines="1"
     android:paddingBottom="3dp"
     android:paddingTop="3dp"
-    android:textAppearance="?attr/textAppearanceListItem" />
+    android:textColor="#333"
+    android:textSize="13sp" />
