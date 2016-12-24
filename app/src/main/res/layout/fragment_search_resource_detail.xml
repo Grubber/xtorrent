@@ -62,15 +62,12 @@
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_marginTop="1dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="1dp"
+                android:layout_margin="1dp"
                 android:background="@color/colorWhite"
                 android:padding="5dp"
                 android:text="@string/text_type"
@@ -78,71 +75,31 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/typeView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorWhite"
+                android:padding="5dp"
+                android:textColor="#333" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
                 android:background="@color/colorWhite"
                 android:padding="5dp"
                 android:text="@string/text_size"
                 android:textColor="@color/colorBlack"
                 android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:text="@string/text_files"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:text="@string/text_downloads"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:text="@string/text_updated"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:text="@string/text_created"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_marginTop="1dp">
-
-            <TextView
-                android:id="@+id/typeView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="1dp"
-                android:background="@color/colorWhite"
-                android:padding="5dp"
-                android:textColor="#333" />
 
             <TextView
                 android:id="@+id/sizeView"
@@ -152,15 +109,48 @@
                 android:background="@color/colorWhite"
                 android:padding="5dp"
                 android:textColor="#333" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:background="@color/colorWhite"
+                android:padding="5dp"
+                android:text="@string/text_files"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/filesView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
                 android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
                 android:background="@color/colorWhite"
                 android:padding="5dp"
                 android:textColor="#333" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:background="@color/colorWhite"
+                android:padding="5dp"
+                android:text="@string/text_downloads"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/downloadsView"
@@ -170,20 +160,55 @@
                 android:background="@color/colorWhite"
                 android:padding="5dp"
                 android:textColor="#333" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:background="@color/colorWhite"
+                android:padding="5dp"
+                android:text="@string/text_updated"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/updatedView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
                 android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
                 android:background="@color/colorWhite"
                 android:padding="5dp"
                 android:textColor="#333" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:background="@color/colorWhite"
+                android:padding="5dp"
+                android:text="@string/text_created"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/createdView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="1dp"
                 android:background="@color/colorWhite"
                 android:padding="5dp"
                 android:textColor="#333" />
