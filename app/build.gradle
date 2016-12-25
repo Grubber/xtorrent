@@ -66,6 +66,11 @@ dependencies {
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile "com.squareup.okhttp3:okhttp:$okhttp_version"
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'
+
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"

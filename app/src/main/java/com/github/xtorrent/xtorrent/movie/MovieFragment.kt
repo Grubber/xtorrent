@@ -1,5 +1,6 @@
 package com.github.xtorrent.xtorrent.movie
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.github.xtorrent.xtorrent.R
 import com.github.xtorrent.xtorrent.base.ContentFragment
 import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.movie.model.Movie
+import com.squareup.picasso.Picasso
 
 /**
  * Created by zhihao.zeng on 16/11/29.
@@ -31,10 +33,11 @@ class MovieFragment : ContentFragment(), MovieContract.View {
     private val _recyclerView by bindView<RecyclerView>(R.id.recyclerView)
 
     private val _adapter by lazy {
-        MovieItemAdapter(_presenter)
+        MovieItemAdapter(_presenter, _picasso)
     }
 
     private lateinit var _presenter: MovieContract.Presenter
+    private lateinit var _picasso: Picasso
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -67,6 +70,10 @@ class MovieFragment : ContentFragment(), MovieContract.View {
         _presenter.subscribe()
     }
 
+    override fun setPicasso(picasso: Picasso) {
+        _picasso = picasso
+    }
+
     override fun onDestroy() {
         _presenter.unsubscribe()
         super.onDestroy()
@@ -76,7 +83,8 @@ class MovieFragment : ContentFragment(), MovieContract.View {
         return null
     }
 
-    class MovieItemAdapter(private val presenter: MovieContract.Presenter) : PagingRecyclerViewAdapter<Movie>() {
+    class MovieItemAdapter(private val presenter: MovieContract.Presenter,
+                           private val picasso: Picasso) : PagingRecyclerViewAdapter<Movie>() {
         override fun getLoadCount(): Int {
             return 6
         }
@@ -92,9 +100,13 @@ class MovieFragment : ContentFragment(), MovieContract.View {
 
         override fun onBindBasicItemView(holder: RecyclerView.ViewHolder, position: Int) {
             holder as MovieItemViewHolder
-
-//            holder.coverView
-            holder.titleView.text = getItem(position).title
+            val item = getItem(position)
+            picasso.load(item.coverImage)
+                    .placeholder(ColorDrawable(R.color.colorGray))
+                    .error(ColorDrawable(R.color.colorGray))
+                    .fit()
+                    .into(holder.coverView)
+            holder.titleView.text = item.title
             holder.itemView.setOnClickListener {
                 // TODO
             }

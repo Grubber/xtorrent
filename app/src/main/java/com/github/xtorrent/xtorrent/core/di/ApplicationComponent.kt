@@ -13,7 +13,7 @@ import dagger.Component
  * Created by zhihao.zeng on 16/11/29.
  */
 @ApplicationScope
-@Component(modules = arrayOf(AndroidModule::class, DataModule::class))
+@Component(modules = arrayOf(AndroidModule::class, DataModule::class, NetworkModule::class))
 interface ApplicationComponent {
     fun plus(searchResourcesRepositoryModule: SearchResourcesRepositoryModule): SearchResourcesRepositoryComponent
     fun plus(homeResourcesRepositoryModule: HomeResourcesRepositoryModule): HomeResourcesRepositoryComponent
