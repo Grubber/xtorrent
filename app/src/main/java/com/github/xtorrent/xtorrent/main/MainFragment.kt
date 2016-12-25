@@ -14,10 +14,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
+import com.github.xtorrent.xtorrent.XApplication
 import com.github.xtorrent.xtorrent.base.XFragment
 import com.github.xtorrent.xtorrent.feedback.FeedbackActivity
 import com.github.xtorrent.xtorrent.home.HomeFragment
 import com.github.xtorrent.xtorrent.movie.MovieFragment
+import com.github.xtorrent.xtorrent.movie.MoviePresenter
+import com.github.xtorrent.xtorrent.movie.MoviePresenterModule
 import com.github.xtorrent.xtorrent.search.SearchResourcesActivity
 import com.github.xtorrent.xtorrent.settings.SettingsActivity
 import com.github.xtorrent.xtorrent.trend.TrendFragment
@@ -25,7 +28,7 @@ import com.lapism.searchview.SearchAdapter
 import com.lapism.searchview.SearchHistoryTable
 import com.lapism.searchview.SearchItem
 import com.lapism.searchview.SearchView
-
+import javax.inject.Inject
 
 /**
  * Created by zhihao.zeng on 16/11/29.
@@ -59,9 +62,16 @@ class MainFragment : XFragment() {
         arrayListOf(
                 HomeFragment.newInstance(),
                 TrendFragment.newInstance(),
-                MovieFragment.newInstance()
+                _movieFragment
         )
     }
+
+    private val _movieFragment by lazy {
+        MovieFragment.newInstance()
+    }
+
+    @Inject
+    lateinit var moviePresenter: MoviePresenter
 
     private var _checkItemId: Int = R.id.homeMenu
 
@@ -71,6 +81,11 @@ class MainFragment : XFragment() {
         _setDrawer()
         _setNavigationView()
         _setSearchView()
+
+        XApplication.from(context)
+                .movieRepositoryComponent
+                .plus(MoviePresenterModule(_movieFragment))
+                .inject(this)
 
         _initFragments()
         _replaceContentFrame(0)
