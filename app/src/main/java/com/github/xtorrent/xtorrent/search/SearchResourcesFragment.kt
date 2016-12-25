@@ -17,7 +17,6 @@ import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.search.detail.SearchResourceDetailActivity
 import com.github.xtorrent.xtorrent.search.model.Resource
 import com.github.xtorrent.xtorrent.search.model.ResourceItem
-import com.github.xtorrent.xtorrent.search.view.ResourceInfoView
 import com.github.xtorrent.xtorrent.search.view.ResourceItemView
 
 /**
@@ -111,25 +110,14 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
                 holder.itemContainer.addView(itemView)
             }
 
-            holder.descriptionContainer.removeAllViews()
-            val typeView = ResourceInfoView(context)
-            typeView.setText(item.first.type())
-            holder.descriptionContainer.addView(typeView)
-            val filesView = ResourceInfoView(context)
-            filesView.setText(item.first.files())
-            holder.descriptionContainer.addView(filesView)
-            val sizeView = ResourceInfoView(context)
-            sizeView.setText(item.first.size())
-            holder.descriptionContainer.addView(sizeView)
-            val downloadsView = ResourceInfoView(context)
-            downloadsView.setText(item.first.downloads())
-            holder.descriptionContainer.addView(downloadsView)
-            val updatedView = ResourceInfoView(context)
-            updatedView.setText(item.first.updated())
-            holder.descriptionContainer.addView(updatedView)
-            val createdView = ResourceInfoView(context)
-            createdView.setText(item.first.created())
-            holder.descriptionContainer.addView(createdView)
+            with(item.first) {
+                holder.typeView.text = type()
+                holder.filesView.text = files()
+                holder.sizeView.text = size()
+                holder.downloadsView.text = downloads()
+                holder.updatedView.text = updated()
+                holder.createdView.text = created()
+            }
 
             holder.itemView.setOnClickListener {
                 SearchResourceDetailActivity.start(context, item.first.title().replace("<b>", "").replace("</b>", ""), item.first.url())
@@ -154,7 +142,12 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
     class SearchResourceItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         val titleView by bindView<TextView>(R.id.titleView)
         val itemContainer by bindView<LinearLayout>(R.id.itemContainer)
-        val descriptionContainer by bindView<LinearLayout>(R.id.descriptionContainer)
+        val typeView by bindView<TextView>(R.id.typeView)
+        val filesView by bindView<TextView>(R.id.filesView)
+        val sizeView by bindView<TextView>(R.id.sizeView)
+        val downloadsView by bindView<TextView>(R.id.downloadsView)
+        val updatedView by bindView<TextView>(R.id.updatedView)
+        val createdView by bindView<TextView>(R.id.createdView)
     }
 
     override fun getTitle(): String? {
