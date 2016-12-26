@@ -23,7 +23,7 @@ import java.util.regex.Pattern
  */
 class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
     companion object {
-        val EXTRA_TYPE = "type"
+        private const val EXTRA_TYPE = "type"
 
         fun newInstance(type: HomeResource.Type): HomeResourcesFragment {
             val fragment = HomeResourcesFragment()

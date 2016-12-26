@@ -24,8 +24,8 @@ import kotlin.properties.Delegates
  */
 class SearchResourceDetailFragment : ContentFragment(), SearchResourceDetailContract.View {
     companion object {
-        private val _EXTRA_TITLE = "title"
-        private val _EXTRA_URL = "url"
+        private const val _EXTRA_TITLE = "title"
+        private const val _EXTRA_URL = "url"
 
         fun newInstance(title: String, url: String): SearchResourceDetailFragment {
             val fragment = SearchResourceDetailFragment()

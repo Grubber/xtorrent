@@ -19,7 +19,7 @@ import javax.inject.Inject
  */
 class SearchResourcesActivity : AppCompatActivity() {
     companion object {
-        private val EXTRA_KEYWORD = "keyword"
+        private const val EXTRA_KEYWORD = "keyword"
 
         fun start(context: Context, keyword: String) {
             val intent = Intent(context, SearchResourcesActivity::class.java)

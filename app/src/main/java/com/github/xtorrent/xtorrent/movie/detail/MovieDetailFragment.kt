@@ -14,8 +14,8 @@ import com.squareup.picasso.Picasso
  */
 class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
     companion object {
-        const val EXTRA_TITLE = "title"
-        const val EXTRA_URL = "url"
+        private const val EXTRA_TITLE = "title"
+        private const val EXTRA_URL = "url"
 
         fun newInstance(title: String, url: String): MovieDetailFragment {
             val fragment = MovieDetailFragment()

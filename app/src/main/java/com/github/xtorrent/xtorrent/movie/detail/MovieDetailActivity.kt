@@ -14,8 +14,8 @@ import javax.inject.Inject
  */
 class MovieDetailActivity : XActivity() {
     companion object {
-        const val EXTRA_TITLE = "title"
-        const val EXTRA_URL = "url"
+        private const val EXTRA_TITLE = "title"
+        private const val EXTRA_URL = "url"
 
         fun start(context: Context, title: String, url: String) {
             val intent = Intent(context, MovieDetailActivity::class.java)

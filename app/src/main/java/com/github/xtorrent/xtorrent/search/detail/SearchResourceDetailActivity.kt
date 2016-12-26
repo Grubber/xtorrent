@@ -13,8 +13,8 @@ import javax.inject.Inject
  */
 class SearchResourceDetailActivity : XActivity() {
     companion object {
-        private val _EXTRA_TITLE = "title"
-        private val _EXTRA_URL = "url"
+        private const val _EXTRA_TITLE = "title"
+        private const val _EXTRA_URL = "url"
 
         fun start(context: Context, title: String, url: String) {
             val intent = Intent(context, SearchResourceDetailActivity::class.java)

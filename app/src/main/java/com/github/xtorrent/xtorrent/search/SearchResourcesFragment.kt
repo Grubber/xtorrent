@@ -24,7 +24,7 @@ import com.github.xtorrent.xtorrent.search.view.ResourceItemView
  */
 class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View {
     companion object {
-        private val EXTRA_KEYWORD = "keyword"
+        private const val EXTRA_KEYWORD = "keyword"
 
         fun newInstance(keyword: String): SearchResourcesFragment {
             val fragment = SearchResourcesFragment()
