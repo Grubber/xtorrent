@@ -1,13 +1,26 @@
 package com.github.xtorrent.xtorrent.movie.detail
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
 import com.github.xtorrent.xtorrent.base.ContentFragment
+import com.github.xtorrent.xtorrent.base.XFragment
 import com.github.xtorrent.xtorrent.movie.model.Movie
+import com.github.xtorrent.xtorrent.movie.view.LoopViewPager
 import com.squareup.picasso.Picasso
+import com.viewpagerindicator.CirclePageIndicator
+import java.util.*
+import kotlin.properties.Delegates
 
 /**
  * Created by zhihao.zeng on 16/12/26.
@@ -52,8 +65,44 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
         _presenter = presenter
     }
 
+    private val _headerImageView by bindView<ImageView>(R.id.headerImageView)
+    private val _titleView by bindView<TextView>(R.id.titleView)
+    private val _picturesViewPager by bindView<LoopViewPager>(R.id.picturesViewPager)
+    private val _pictureIndicator by bindView<CirclePageIndicator>(R.id.picturesIndicator)
+//    private val _webView by bindView<WebView>(R.id.webView)
+
     override fun setContentView(movie: Movie) {
-        // TODO
+        _picasso.load(movie.headerImage)
+                .placeholder(ColorDrawable(R.color.colorGray))
+                .error(ColorDrawable(R.color.colorGray))
+                .fit()
+                .into(_headerImageView)
+        _titleView.text = movie.title
+
+        _picturesViewPager.setPageTransformer(true, ZoomOutPageTransformer())
+        _picturesViewPager.pageMargin = context.resources.getDimensionPixelOffset(R.dimen.page_margin)
+        val pagerAdapter = MoviePicturePagerAdapter(childFragmentManager)
+        movie.moviePictures?.map {
+            val fragment = MoviePictureFragment.newInstance(it.img)
+            fragment.picasso = _picasso
+            fragment
+        }?.let {
+            pagerAdapter.fragments = it as ArrayList<MoviePictureFragment>
+        }
+        movie.moviePictures?.first()?.let {
+            val fragment = MoviePictureFragment.newInstance(it.img)
+            fragment.picasso = _picasso
+            pagerAdapter.fragments.add(fragment)
+        }
+        movie.moviePictures?.last()?.let {
+            val fragment = MoviePictureFragment.newInstance(it.img)
+            fragment.picasso = _picasso
+            pagerAdapter.fragments.add(0, fragment)
+        }
+        _picturesViewPager.adapter = pagerAdapter
+        _picturesViewPager.offscreenPageLimit = pagerAdapter.count
+        _pictureIndicator.setViewPager(_picturesViewPager)
+
         displayContentView()
     }
 
@@ -76,5 +125,77 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
 
     override fun getTitle(): String? {
         return _title
+    }
+
+    class ZoomOutPageTransformer : ViewPager.PageTransformer {
+        private val _MIN_SCALE = 0.85f
+
+        override fun transformPage(page: View?, position: Float) {
+            val pageWidth = page!!.width
+            val pageHeight = page.height
+            val scaleFactor = Math.max(_MIN_SCALE, 1 - Math.abs(position))
+            val vertMargin = pageHeight * (1 - scaleFactor) / 2
+            val horzMargin = pageWidth * (1 - scaleFactor) / 2
+            if (position < 0) {
+                page.translationX = horzMargin - vertMargin / 2
+            } else {
+                page.translationX = -horzMargin + vertMargin / 2
+            }
+
+            page.scaleX = scaleFactor
+            page.scaleY = scaleFactor
+        }
+    }
+
+    class MoviePicturePagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
+        var fragments = arrayListOf<MoviePictureFragment>()
+
+        override fun getCount(): Int {
+            return fragments.size - 2
+        }
+
+        override fun getItem(position: Int): Fragment {
+            return fragments[position]
+        }
+    }
+
+    class MoviePictureFragment : XFragment() {
+        companion object {
+            private const val EXTRA_URL = "url"
+
+            fun newInstance(url: String): MoviePictureFragment {
+                val fragment = MoviePictureFragment()
+                val args = Bundle()
+                args.putString(EXTRA_URL, url)
+                fragment.arguments = args
+                return fragment
+            }
+        }
+
+        override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+            return inflater?.inflate(R.layout.layout_movie_picture, container, false)
+        }
+
+        private val _imageView by bindView<ImageView>(R.id.imageView)
+
+        var picasso by Delegates.notNull<Picasso>()
+
+        private val _url by lazy {
+            arguments.getString(EXTRA_URL)
+        }
+
+        override fun onActivityCreated(savedInstanceState: Bundle?) {
+            super.onActivityCreated(savedInstanceState)
+
+            picasso.load(_url)
+                    .placeholder(ColorDrawable(R.color.colorGray))
+                    .error(ColorDrawable(R.color.colorGray))
+                    .fit()
+                    .into(_imageView)
+        }
+
+        override fun getTitle(): String? {
+            return null
+        }
     }
 }
