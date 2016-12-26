@@ -8,4 +8,5 @@ import rx.Observable
  */
 interface MovieDataSource {
     fun getMovies(pageNumber: Int): Observable<List<Movie>>
+    fun getMovie(url: String): Observable<Movie>
 }

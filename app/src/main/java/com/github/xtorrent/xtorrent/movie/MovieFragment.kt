@@ -1,5 +1,6 @@
 package com.github.xtorrent.xtorrent.movie
 
+import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
 import com.github.xtorrent.xtorrent.base.ContentFragment
 import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
+import com.github.xtorrent.xtorrent.movie.detail.MovieDetailActivity
 import com.github.xtorrent.xtorrent.movie.model.Movie
 import com.squareup.picasso.Picasso
 
@@ -33,7 +35,7 @@ class MovieFragment : ContentFragment(), MovieContract.View {
     private val _recyclerView by bindView<RecyclerView>(R.id.recyclerView)
 
     private val _adapter by lazy {
-        MovieItemAdapter(_presenter, _picasso)
+        MovieItemAdapter(context, _presenter, _picasso)
     }
 
     private lateinit var _presenter: MovieContract.Presenter
@@ -83,7 +85,8 @@ class MovieFragment : ContentFragment(), MovieContract.View {
         return null
     }
 
-    class MovieItemAdapter(private val presenter: MovieContract.Presenter,
+    class MovieItemAdapter(private val context: Context,
+                           private val presenter: MovieContract.Presenter,
                            private val picasso: Picasso) : PagingRecyclerViewAdapter<Movie>() {
         override fun getLoadCount(): Int {
             return 6
@@ -108,7 +111,7 @@ class MovieFragment : ContentFragment(), MovieContract.View {
                     .into(holder.coverView)
             holder.titleView.text = item.title
             holder.itemView.setOnClickListener {
-                // TODO
+                MovieDetailActivity.start(context, item.title, item.url!!)
             }
         }
 
