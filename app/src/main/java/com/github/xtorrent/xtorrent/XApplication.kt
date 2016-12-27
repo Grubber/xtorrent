@@ -12,6 +12,7 @@ import com.github.xtorrent.xtorrent.home.source.HomeResourcesRepositoryModule
 import com.github.xtorrent.xtorrent.movie.source.MovieRepositoryComponent
 import com.github.xtorrent.xtorrent.search.source.SearchResourcesRepositoryComponent
 import com.github.xtorrent.xtorrent.search.source.SearchResourcesRepositoryModule
+import com.github.xtorrent.xtorrent.trend.source.TrendResourcesRepositoryComponent
 import com.squareup.leakcanary.LeakCanary
 import timber.log.Timber
 import javax.inject.Inject
@@ -31,6 +32,7 @@ class XApplication : MultiDexApplication() {
     var homeResourcesRepositoryComponent by Delegates.notNull<HomeResourcesRepositoryComponent>()
     var searchResourcesRepositoryComponent by Delegates.notNull<SearchResourcesRepositoryComponent>()
     var movieRepositoryComponent by Delegates.notNull<MovieRepositoryComponent>()
+    var trendResourcesRepositoryComponent by Delegates.notNull<TrendResourcesRepositoryComponent>()
 
     @Inject
     lateinit var databaseManager: DatabaseManager
@@ -51,7 +53,8 @@ class XApplication : MultiDexApplication() {
                 .build()
         homeResourcesRepositoryComponent = applicationComponent.plus(HomeResourcesRepositoryModule())
         searchResourcesRepositoryComponent = applicationComponent.plus(SearchResourcesRepositoryModule())
-        movieRepositoryComponent = applicationComponent.plus()
+        movieRepositoryComponent = applicationComponent.plusMovieRepositoryComponent()
+        trendResourcesRepositoryComponent = applicationComponent.plusTrendResourcesRepositoryComponent()
 
         applicationComponent.inject(this)
     }

@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
+import com.github.xtorrent.xtorrent.XApplication
 import com.github.xtorrent.xtorrent.base.XFragment
 import com.github.xtorrent.xtorrent.widget.PagingEnabledViewPager
 import java.util.*
+import javax.inject.Inject
 import kotlin.properties.Delegates
 
 /**
@@ -38,6 +40,9 @@ class TrendFragment : XFragment() {
 
     private var _items by Delegates.notNull<List<TabItem>>()
 
+    @Inject
+    lateinit var presenter: TrendResourcesPresenter
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -46,6 +51,15 @@ class TrendFragment : XFragment() {
 
         val monthFragment = TrendResourcesFragment.newInstance(TrendResourcesFragment.TYPE_MONTH)
         val weekFragment = TrendResourcesFragment.newInstance(TrendResourcesFragment.TYPE_WEEK)
+
+        XApplication.from(context)
+                .trendResourcesRepositoryComponent
+                .plus(TrendResourcesPresenterModule(monthFragment))
+                .inject(this)
+        XApplication.from(context)
+                .trendResourcesRepositoryComponent
+                .plus(TrendResourcesPresenterModule(weekFragment))
+                .inject(this)
 
         _items = arrayListOf(
                 TabItem(monthFragment, "月下载趋势"),

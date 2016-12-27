@@ -7,6 +7,7 @@ import com.github.xtorrent.xtorrent.home.source.HomeResourcesRepositoryModule
 import com.github.xtorrent.xtorrent.movie.source.MovieRepositoryComponent
 import com.github.xtorrent.xtorrent.search.source.SearchResourcesRepositoryComponent
 import com.github.xtorrent.xtorrent.search.source.SearchResourcesRepositoryModule
+import com.github.xtorrent.xtorrent.trend.source.TrendResourcesRepositoryComponent
 import dagger.Component
 
 /**
@@ -17,7 +18,8 @@ import dagger.Component
 interface ApplicationComponent {
     fun plus(searchResourcesRepositoryModule: SearchResourcesRepositoryModule): SearchResourcesRepositoryComponent
     fun plus(homeResourcesRepositoryModule: HomeResourcesRepositoryModule): HomeResourcesRepositoryComponent
-    fun plus(): MovieRepositoryComponent
+    fun plusMovieRepositoryComponent(): MovieRepositoryComponent
+    fun plusTrendResourcesRepositoryComponent(): TrendResourcesRepositoryComponent
 
     fun inject(xApplication: XApplication)
 }
