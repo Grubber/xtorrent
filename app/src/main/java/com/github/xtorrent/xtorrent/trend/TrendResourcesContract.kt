@@ -14,6 +14,6 @@ interface TrendResourcesContract {
     }
 
     interface Presenter : BasePresenter {
-        fun setType(type: Int)
+        fun setType(type: String)
     }
 }

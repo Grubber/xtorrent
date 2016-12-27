@@ -16,14 +16,14 @@ class TrendResourcesPresenter @Inject constructor(private val repository: TrendR
         CompositeSubscription()
     }
 
-    private var _type = TrendResourcesFragment.TYPE_MONTH
+    private lateinit var _type: String
 
     @Inject
     fun setup() {
         view.setPresenter(this)
     }
 
-    override fun setType(type: Int) {
+    override fun setType(type: String) {
         _type = type
     }
 

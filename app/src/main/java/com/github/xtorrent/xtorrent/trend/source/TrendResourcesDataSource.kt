@@ -7,5 +7,5 @@ import rx.Observable
  * Created by zhihao.zeng on 16/12/27.
  */
 interface TrendResourcesDataSource {
-    fun getResources(type: Int): Observable<List<TrendResource>>
+    fun getResources(type: String): Observable<List<TrendResource>>
 }
