@@ -208,6 +208,10 @@ class MainFragment : XFragment() {
     fun onBackPressed() {
         if (_drawerLayout.isDrawerOpen(GravityCompat.START)) {
             _drawerLayout.closeDrawer(GravityCompat.START)
+        } else if (_checkItemId != R.id.homeMenu) {
+            _replaceContentFrame(0)
+            _checkItemId = R.id.homeMenu
+            _navigationView.setCheckedItem(_checkItemId)
         } else {
             (activity as MainActivity).exit()
         }
