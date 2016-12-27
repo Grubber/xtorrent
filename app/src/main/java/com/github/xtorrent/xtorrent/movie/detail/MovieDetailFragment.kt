@@ -123,8 +123,8 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
                     val dRegex = "http://engiy.com/d/(.*)"
                     val dPattern = Pattern.compile(dRegex)
                     val dMatcher = dPattern.matcher(it)
-                    if (dMatcher.find()) {
-                        SearchResourceDetailActivity.start(context, URLDecoder.decode(dMatcher.group(1)), it)
+                    if (dMatcher.matches()) {
+                        SearchResourceDetailActivity.start(context, "", it)
                         return@let
                     }
                 }
