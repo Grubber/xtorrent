@@ -7,6 +7,7 @@ data class Movie(var title: String,
                  var headerImage: String?,
                  var coverImage: String?,
                  var moviePictures: List<MoviePicture>?,
-                 var url: String?)
+                 var url: String?,
+                 var description: String?)
 
 data class MoviePicture(var img: String)

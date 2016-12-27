@@ -31,7 +31,8 @@ class MovieRepository @Inject constructor() : MovieDataSource {
                                 coverImage = coverImage,
                                 url = url,
                                 headerImage = null,
-                                moviePictures = null
+                                moviePictures = null,
+                                description = null
                         )
                     }
                     it.onNext(movies)
@@ -53,12 +54,12 @@ class MovieRepository @Inject constructor() : MovieDataSource {
                         val headerNode = it.getElementsByClass("top")[0]
 
                         val styleText = headerNode.attr("style")
-                        val regex = "background: url\\('(.*)'\\);"
-                        val pattern = Pattern.compile(regex)
-                        val matcher = pattern.matcher(styleText)
+                        val styleTextRegex = "background: url\\('(.*)'\\);"
+                        val styleTextPattern = Pattern.compile(styleTextRegex)
+                        val styleTextMatcher = styleTextPattern.matcher(styleText)
                         var headerImage: String? = null
-                        if (matcher.find()) {
-                            headerImage = matcher.group(1)
+                        if (styleTextMatcher.find()) {
+                            headerImage = styleTextMatcher.group(1)
                         }
 
                         val title = headerNode.getElementsByClass("title")[0].text()
@@ -68,12 +69,21 @@ class MovieRepository @Inject constructor() : MovieDataSource {
                             moviePictures += MoviePicture(it.select("img")[0].attr("src"))
                         }
 
+                        val contentRegex = "<!-- Content -->([\\s\\S]*)<!-- Tags -->"
+                        val contentPattern = Pattern.compile(contentRegex)
+                        val contentMatcher = contentPattern.matcher(it.html())
+                        var description = ""
+                        if (contentMatcher.find()) {
+                            description = contentMatcher.group(1)
+                        }
+
                         movie = Movie(
                                 title = title,
                                 headerImage = headerImage,
                                 moviePictures = moviePictures,
                                 coverImage = null,
-                                url = null)
+                                url = null,
+                                description = description)
                     }
                     it.onNext(movie)
                     it.onCompleted()

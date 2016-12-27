@@ -1,72 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/headerImageView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:contentDescription="@null" />
+        android:layout_height="wrap_content">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/headerImageView"
-        android:background="#f6f6f6" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/headerImageView"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="-50dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/titleView"
+        <ImageView
+            android:id="@+id/headerImageView"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#b3ffffff"
-            android:gravity="center_vertical"
-            android:paddingLeft="16dp"
-            android:textColor="#333"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_height="200dp"
+            android:contentDescription="@null" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/headerImageView"
+            android:background="#f6f6f6" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorWhite"
-            android:clipChildren="false"
-            android:orientation="vertical"
-            android:paddingTop="16dp">
+            android:layout_below="@id/headerImageView"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="-50dp"
+            android:orientation="vertical">
 
-            <com.github.xtorrent.xtorrent.movie.view.LoopViewPager
-                android:id="@+id/picturesViewPager"
+            <TextView
+                android:id="@+id/titleView"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"
-                android:clipChildren="false" />
+                android:layout_height="50dp"
+                android:background="#b3ffffff"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:textColor="#333"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-            <com.viewpagerindicator.CirclePageIndicator xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/picturesIndicator"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:fillColor="@color/colorPrimary"
-                app:pageColor="@color/colorGray"
-                app:radius="5dp"
-                app:strokeColor="#40FFFFFF"
-                app:strokeWidth="0.5dp" />
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                android:clipChildren="false"
+                android:orientation="vertical"
+                android:paddingTop="16dp">
 
-            <!--<WebView-->
-            <!--android:id="@+id/webView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginTop="16dp" />-->
+                <com.github.xtorrent.xtorrent.movie.view.LoopViewPager
+                    android:id="@+id/picturesViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="35dp"
+                    android:clipChildren="false" />
+
+                <com.viewpagerindicator.CirclePageIndicator xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/picturesIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:fillColor="@color/colorPrimary"
+                    app:pageColor="@color/colorGray"
+                    app:radius="5dp"
+                    app:strokeColor="#40FFFFFF"
+                    app:strokeWidth="0.5dp" />
+
+                <WebView
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.bindView
@@ -17,9 +19,13 @@ import com.github.xtorrent.xtorrent.base.ContentFragment
 import com.github.xtorrent.xtorrent.base.XFragment
 import com.github.xtorrent.xtorrent.movie.model.Movie
 import com.github.xtorrent.xtorrent.movie.view.LoopViewPager
+import com.github.xtorrent.xtorrent.search.SearchResourcesActivity
+import com.github.xtorrent.xtorrent.search.detail.SearchResourceDetailActivity
 import com.squareup.picasso.Picasso
 import com.viewpagerindicator.CirclePageIndicator
+import java.net.URLDecoder
 import java.util.*
+import java.util.regex.Pattern
 import kotlin.properties.Delegates
 
 /**
@@ -69,7 +75,7 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
     private val _titleView by bindView<TextView>(R.id.titleView)
     private val _picturesViewPager by bindView<LoopViewPager>(R.id.picturesViewPager)
     private val _pictureIndicator by bindView<CirclePageIndicator>(R.id.picturesIndicator)
-//    private val _webView by bindView<WebView>(R.id.webView)
+    private val _webView by bindView<WebView>(R.id.webView)
 
     override fun setContentView(movie: Movie) {
         _picasso.load(movie.headerImage)
@@ -103,6 +109,30 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
         _picturesViewPager.offscreenPageLimit = pagerAdapter.count
         _pictureIndicator.setViewPager(_picturesViewPager)
 
+        _webView.setWebViewClient(object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                url?.let {
+                    val sRegex = "http://engiy.com/s/(.*)"
+                    val sPattern = Pattern.compile(sRegex)
+                    val sMatcher = sPattern.matcher(it)
+                    if (sMatcher.find()) {
+                        SearchResourcesActivity.start(context, URLDecoder.decode(sMatcher.group(1)))
+                        return@let
+                    }
+
+                    val dRegex = "http://engiy.com/d/(.*)"
+                    val dPattern = Pattern.compile(dRegex)
+                    val dMatcher = dPattern.matcher(it)
+                    if (dMatcher.find()) {
+                        SearchResourceDetailActivity.start(context, URLDecoder.decode(dMatcher.group(1)), it)
+                        return@let
+                    }
+                }
+                return true
+            }
+        })
+        _webView.loadDataWithBaseURL("", movie.description, "text/html", "utf-8", "")
+
         displayContentView()
     }
 
@@ -120,6 +150,8 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
 
     override fun onDestroy() {
         _presenter.unsubscribe()
+        _webView.removeAllViews()
+        _webView.destroy()
         super.onDestroy()
     }
 
