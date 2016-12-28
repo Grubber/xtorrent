@@ -52,7 +52,7 @@ buildscript {
     ext.retrofit_version = '2.1.0'
     ext.rxlifecycle_version = '0.6.1'
     ext.rxbinding_version = '0.4.0'
-    ext.kotlin_version = '1.0.5-3'
+    ext.kotlin_version = '1.0.6'
     ext.dagger_version = '2.2'
     ext.autovalue_version = '1.2'
     ext.leakcanary_version = '1.5'
