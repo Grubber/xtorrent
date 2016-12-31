@@ -3,6 +3,29 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.squareup.sqldelight'
 
+def getDebugConfig = { ->
+    return false
+}
+
+def getVersionTag = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags', '--abbrev=0'
+        standardOutput = stdout
+    }
+
+    def name = stdout.toString().trim().substring(1)
+    return name
+}
+
+def getVersionNameFromTag = { ->
+    return getVersionTag().tokenize('+')[0]
+}
+
+def getVersionCodeFromTag = { ->
+    return getVersionTag().tokenize('+')[1].toInteger()
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -11,8 +34,8 @@ android {
         applicationId "com.github.xtorrent.xtorrent"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode getVersionCodeFromTag()
+        versionName getVersionNameFromTag()
 
         multiDexEnabled true
 
@@ -25,19 +48,61 @@ android {
         abortOnError false
     }
 
+    signingConfigs {
+        release
+    }
+
     buildTypes {
         debug {
-            shrinkResources false
-            minifyEnabled false
+            shrinkResources getDebugConfig()
+            minifyEnabled getDebugConfig()
+            zipAlignEnabled getDebugConfig()
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         release {
             shrinkResources true
             minifyEnabled true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.release
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = "xtorrent-v${defaultConfig.versionName}+${defaultConfig.versionCode}-${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
     }
+
+    productFlavors {
+        googlePlay {}
+    }
+}
+
+def Properties props = new Properties()
+def propFile = new File('signing.properties')
+
+if (propFile.canRead()) {
+    props.load(new FileInputStream(propFile))
+
+    if (props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD')
+            && props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+        android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+        android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+        android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+        android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+    } else {
+        println '==> signing.properties found but some entries are missing'
+        android.buildTypes.release.signingConfig = null
+    }
+} else {
+    println '==> signing.properties not found'
+    android.buildTypes.release.signingConfig = null
 }
 
 repositories {
