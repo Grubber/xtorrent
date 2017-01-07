@@ -17,8 +17,7 @@
         <item
             android:id="@+id/movie"
             android:icon="@drawable/ic_movie_black_24dp"
-            android:title="@string/drawer_menu_movies"
-            android:visible="false" />
+            android:title="@string/drawer_menu_movies" />
     </group>
 
     <group
