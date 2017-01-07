@@ -58,6 +58,8 @@ android {
             minifyEnabled getDebugConfig()
             zipAlignEnabled getDebugConfig()
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            resValue "string", "banner_ad_unit_id", "ca-app-pub-3940256099942544/6300978111"
         }
 
         release {
@@ -76,6 +78,8 @@ android {
                     }
                 }
             }
+
+            resValue "string", "banner_ad_unit_id", "ca-app-pub-8414367625118169/1663325539"
         }
     }
 
@@ -84,6 +88,10 @@ android {
             applicationId "com.github.xtorrent.xtorrent.dev"
             resValue "string", "app_name", "X 磁力搜索"
         }
+    }
+
+    dexOptions {
+        javaMaxHeapSize = "4g"
     }
 }
 
@@ -185,4 +193,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
+
+    compile 'com.google.android.gms:play-services:10.0.1'
+    compile 'com.google.android.gms:play-services-ads:10.0.1'
 }

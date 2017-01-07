@@ -16,6 +16,8 @@ import com.github.xtorrent.xtorrent.base.ContentFragment
 import com.github.xtorrent.xtorrent.search.model.Resource
 import com.github.xtorrent.xtorrent.search.model.ResourceItem
 import com.github.xtorrent.xtorrent.search.view.ResourceItemView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.jakewharton.rxbinding.view.clicks
 import kotlin.properties.Delegates
 
@@ -69,7 +71,12 @@ class SearchResourceDetailFragment : ContentFragment(), SearchResourceDetailCont
         bindSubscribe(_magnetView.clicks()) {
             _linkToDownload()
         }
+
+        val adRequest = AdRequest.Builder().build()
+        _adView.loadAd(adRequest)
     }
+
+    private val _adView by bindView<AdView>(R.id.adView)
 
     private fun _linkToDownload() {
         try {
