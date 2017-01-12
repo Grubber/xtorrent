@@ -81,7 +81,7 @@
                 android:layout_marginBottom="6dp"
                 android:layout_marginTop="12dp"
                 ads:adSize="BANNER"
-                ads:adUnitId="@string/banner_ad_unit_id" />
+                ads:adUnitId="@string/bottom_ad_unit_id" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

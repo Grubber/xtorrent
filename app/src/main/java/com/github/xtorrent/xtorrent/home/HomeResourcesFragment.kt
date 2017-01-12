@@ -11,8 +11,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
-import com.github.xtorrent.xtorrent.base.BasicRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.base.ContentFragment
+import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.home.model.HomeResource
 import com.github.xtorrent.xtorrent.search.SearchResourcesActivity
 import com.jakewharton.rxbinding.support.v4.widget.refreshes
@@ -82,7 +82,7 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
     }
 
     override fun setContentView(resources: List<HomeResource>) {
-        _adapter.addItems(resources)
+        _adapter.addItems(resources, PagingRecyclerViewAdapter.STATE_LOADING_COMPLETED)
         displayContentView()
     }
 
@@ -91,7 +91,7 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
         _presenter.setType(_type)
     }
 
-    class ResourceItemAdapter(val type: HomeResource.Type, val context: Context) : BasicRecyclerViewAdapter<HomeResource>() {
+    class ResourceItemAdapter(val type: HomeResource.Type, val context: Context) : PagingRecyclerViewAdapter<HomeResource>() {
         override fun onCreateBasicItemViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             return ResourceItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_home_resources, parent, false))
         }
@@ -116,6 +116,18 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
 
         private val _pattern by lazy {
             Pattern.compile("/s/(.*)(___)")
+        }
+
+        override fun onLoadMore(pageNumber: Int) {
+            // Ignored.
+        }
+
+        override fun getLoadCount(): Int {
+            return 0
+        }
+
+        override fun onRetry(pageNumber: Int) {
+            // Ignored.
         }
     }
 

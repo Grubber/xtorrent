@@ -59,7 +59,10 @@ android {
             zipAlignEnabled getDebugConfig()
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            resValue "string", "banner_ad_unit_id", "ca-app-pub-3940256099942544/6300978111"
+            resValue "string", "bottom_ad_unit_id", "ca-app-pub-3940256099942544/6300978111"
+            resValue "string", "loading_ad_unit_id", "ca-app-pub-3940256099942544/6300978111"
+
+            applicationIdSuffix ".debug"
         }
 
         release {
@@ -79,7 +82,8 @@ android {
                 }
             }
 
-            resValue "string", "banner_ad_unit_id", "ca-app-pub-8414367625118169/1663325539"
+            resValue "string", "bottom_ad_unit_id", "ca-app-pub-8414367625118169/1663325539"
+            resValue "string", "loading_ad_unit_id", "ca-app-pub-8414367625118169/7270390339"
         }
     }
 
