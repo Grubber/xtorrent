@@ -64,12 +64,21 @@ class SearchResourceDetailFragment : ContentFragment(), SearchResourceDetailCont
         bindSubscribe(_copyButton.clicks()) {
             _clipboardManager.primaryClip = ClipData.newPlainText("", _resource.magnet())
             showToast(R.string.toast_copied)
+            val params = Bundle()
+            params.putString("action_type", "copy")
+            firebaseAnalytics.logEvent("event_resource_click", params)
         }
         bindSubscribe(_downloadButton.clicks()) {
             _linkToDownload()
+            val params = Bundle()
+            params.putString("action_type", "download")
+            firebaseAnalytics.logEvent("event_resource_click", params)
         }
         bindSubscribe(_magnetView.clicks()) {
             _linkToDownload()
+            val params = Bundle()
+            params.putString("action_type", "magnet")
+            firebaseAnalytics.logEvent("event_resource_click", params)
         }
 
         val adRequest = AdRequest.Builder().build()
@@ -83,8 +92,26 @@ class SearchResourceDetailFragment : ContentFragment(), SearchResourceDetailCont
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(_resource.magnet())
             startActivity(intent)
+
+            val params = Bundle()
+            params.putString("app_type", "maybe115Netdisk")
+            firebaseAnalytics.logEvent("event_resource_wakeup", params)
         } catch (e: ActivityNotFoundException) {
-            showToast(R.string.toast_no_apps_found)
+            try {
+                val intent = Intent(Intent.ACTION_VIEW)
+                val packageName = "com.baidu.netdisk"
+                val className = "$packageName.ui.MainActivity"
+                intent.component = ComponentName(packageName, className)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                showToast("由于百度网盘下载页面不开放原因，请自己手动到下载页面下载资源")
+
+                val params = Bundle()
+                params.putString("app_type", "baiduNetdisk")
+                firebaseAnalytics.logEvent("event_resource_wakeup", params)
+            } catch (e: ActivityNotFoundException) {
+                showToast(R.string.toast_no_apps_found)
+            }
         }
     }
 

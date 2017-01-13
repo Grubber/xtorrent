@@ -15,6 +15,7 @@ import com.github.xtorrent.xtorrent.base.ContentFragment
 import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.home.model.HomeResource
 import com.github.xtorrent.xtorrent.search.SearchResourcesActivity
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.jakewharton.rxbinding.support.v4.widget.refreshes
 import java.util.regex.Pattern
 
@@ -110,6 +111,10 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
                 val matcher = _pattern.matcher(item.url())
                 if (matcher.find()) {
                     SearchResourcesActivity.start(context, matcher.group(1))
+                    val params = Bundle()
+                    params.putString("home_resource_name", item.title())
+                    params.putString("home_resource_type", type.name)
+                    FirebaseAnalytics.getInstance(context).logEvent("event_home_resource_list", params)
                 }
             }
         }
