@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1015698941733",
+    "firebase_url": "https://x-torrent.firebaseio.com",
+    "project_id": "x-torrent",
+    "storage_bucket": "x-torrent.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015698941733:android:8a9016cbac2cadb2",
+        "android_client_info": {
+          "package_name": "com.github.xtorrent.xtorrent.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1015698941733-8bo5lc1pc66vckd02j4gktbjbn1q103l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1yyufo9hXWB9tsSIcSofMWE_CYedd-qs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
