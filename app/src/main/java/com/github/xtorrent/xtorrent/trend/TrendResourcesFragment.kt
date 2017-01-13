@@ -14,6 +14,7 @@ import com.github.xtorrent.xtorrent.base.BasicRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.base.ContentFragment
 import com.github.xtorrent.xtorrent.search.detail.SearchResourceDetailActivity
 import com.github.xtorrent.xtorrent.trend.model.TrendResource
+import com.google.firebase.analytics.FirebaseAnalytics
 
 /**
  * Created by zhihao.zeng on 16/12/27.
@@ -100,6 +101,9 @@ class TrendResourcesFragment : ContentFragment(), TrendResourcesContract.View {
             holder.filesView.text = "文件数 ${item.files}"
             holder.itemView.setOnClickListener {
                 SearchResourceDetailActivity.start(context, item.title, item.url)
+                val params = Bundle()
+                params.putString("trend_resource_name", item.title)
+                FirebaseAnalytics.getInstance(context).logEvent("event_trend_resource_list", params)
             }
         }
 

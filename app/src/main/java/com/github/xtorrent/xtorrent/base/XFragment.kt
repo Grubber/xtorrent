@@ -3,6 +3,7 @@ package com.github.xtorrent.xtorrent.base
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.widget.Toast
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.trello.rxlifecycle.components.support.RxFragment
 import rx.Observable
 
@@ -16,6 +17,10 @@ abstract class XFragment : RxFragment() {
         getTitle()?.let {
             (activity as XActivity).setTitle(it)
         }
+    }
+
+    protected val firebaseAnalytics by lazy {
+        FirebaseAnalytics.getInstance(context)
     }
 
     fun getToolbar(): Toolbar {

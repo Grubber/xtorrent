@@ -183,35 +183,12 @@ dependencies {
     compile 'com.lapism:searchview:4.0'
     compile 'me.zhanghai.android.materialprogressbar:library:1.1.7'
 
+    compile 'com.google.firebase:firebase-core:10.0.1'
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
 }
-
-//def appModuleRootFolder = '.'
-//def srcDir = 'src'
-//def googleServicesJson = 'google-services.json'
-//
-//task switchToDebug(type: Copy) {
-//    def buildType = 'debug'
-//    description = 'Switches to DEBUG google-services.json'
-//    from "${srcDir}/${buildType}"
-//    include "$googleServicesJson"
-//    into "$appModuleRootFolder"
-//}
-//
-//task switchToRelease(type: Copy) {
-//    def buildType = 'release'
-//    description = 'Switches to RELEASE google-services.json'
-//    from "${srcDir}/${buildType}/"
-//    include "$googleServicesJson"
-//    into "$appModuleRootFolder"
-//}
-//
-//afterEvaluate {
-//    processGooglePlayDebugGoogleServices.dependsOn switchToDebug
-//    processGooglePlayReleaseGoogleServices.dependsOn switchToRelease
-//}
 
 apply plugin: 'com.google.gms.google-services'
