@@ -77,7 +77,17 @@ class SearchResourceDetailFragment : ContentFragment(), SearchResourceDetailCont
             intent.data = Uri.parse(_resource.magnet())
             startActivity(intent)
         } catch (e: ActivityNotFoundException) {
-            showToast(R.string.toast_no_apps_found)
+            try {
+                val intent = Intent(Intent.ACTION_VIEW)
+                val packageName = "com.baidu.netdisk"
+                val className = "$packageName.ui.MainActivity"
+                intent.component = ComponentName(packageName, className)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                showToast("由于百度网盘下载页面不开放原因，请自己手动到下载页面下载资源")
+            } catch (e: ActivityNotFoundException) {
+                showToast(R.string.toast_no_apps_found)
+            }
         }
     }
 
