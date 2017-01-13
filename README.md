@@ -3,7 +3,7 @@ TODOs
 
 - [X] 百度网盘下载页唤醒
 
-- [ ] 接入 Google Analytics
+- [X] 接入 Google Analytics
 
 - [ ] 数据持久化
 
