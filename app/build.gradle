@@ -58,6 +58,8 @@ android {
             minifyEnabled getDebugConfig()
             zipAlignEnabled getDebugConfig()
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            applicationIdSuffix ".debug"
         }
 
         release {
