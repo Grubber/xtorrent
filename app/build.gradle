@@ -31,7 +31,9 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "com.github.xtorrent.xtorrent"
+        applicationId "com.github.xtorrent.app"
+        resValue "string", "app_name", "X 磁力资源搜索"
+
         minSdkVersion 14
         targetSdkVersion 25
         versionCode getVersionCodeFromTag()
@@ -89,8 +91,6 @@ android {
 
     productFlavors {
         googlePlay {
-            applicationId "com.github.xtorrent.xtorrent.dev"
-            resValue "string", "app_name", "X 磁力搜索"
         }
     }
 

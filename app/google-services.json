@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1015698941733:android:8a9016cbac2cadb2",
+        "mobilesdk_app_id": "1:1015698941733:android:d4032c1d58a940b3",
         "android_client_info": {
-          "package_name": "com.github.xtorrent.xtorrent.dev"
+          "package_name": "com.github.xtorrent.app"
         }
       },
       "oauth_client": [
@@ -39,9 +39,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1015698941733:android:4f40dd2b44328af1",
+        "mobilesdk_app_id": "1:1015698941733:android:ebe3341c47b4653a",
         "android_client_info": {
-          "package_name": "com.github.xtorrent.xtorrent.dev.debug"
+          "package_name": "com.github.xtorrent.app.debug"
         }
       },
       "oauth_client": [
