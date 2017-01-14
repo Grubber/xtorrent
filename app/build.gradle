@@ -84,8 +84,8 @@ android {
                 }
             }
 
-            resValue "string", "bottom_ad_unit_id", "ca-app-pub-8414367625118169/1663325539"
-            resValue "string", "loading_ad_unit_id", "ca-app-pub-8414367625118169/7270390339"
+            resValue "string", "bottom_ad_unit_id", "ca-app-pub-8414367625118169/6496504334"
+            resValue "string", "loading_ad_unit_id", "ca-app-pub-8414367625118169/7973237532"
         }
     }
 
