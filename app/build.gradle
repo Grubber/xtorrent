@@ -32,7 +32,7 @@ android {
 
     defaultConfig {
         applicationId "com.github.xtorrent.app"
-        resValue "string", "app_name", "X 磁力资源搜索"
+        resValue("string", "app_name", "X 磁力资源搜索")
 
         minSdkVersion 14
         targetSdkVersion 25
@@ -91,6 +91,11 @@ android {
 
     productFlavors {
         googlePlay {
+            resValue("bool", "show_movie_item", "false")
+        }
+
+        others {
+            resValue("bool", "show_movie_item", "true")
         }
     }
 
