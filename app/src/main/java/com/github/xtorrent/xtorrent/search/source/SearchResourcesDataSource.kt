@@ -13,4 +13,6 @@ interface SearchResourcesDataSource {
 
     fun saveSearchResource(resource: Resource)
     fun updateSearchResource(resource: Resource)
+
+    fun getResourceTorrentUrl(magnet: String): Observable<String>
 }

@@ -27,4 +27,9 @@ class SearchResourcesLocalDataSource : SearchResourcesDataSource {
     override fun updateSearchResource(resource: Resource) {
         // TODO
     }
+
+    override fun getResourceTorrentUrl(magnet: String): Observable<String> {
+        // Ignored
+        return emptyObservable()
+    }
 }

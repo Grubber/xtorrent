@@ -16,5 +16,6 @@ interface SearchResourceDetailContract {
 
     interface Presenter : BasePresenter {
         fun setUrl(url: String)
+        fun downloadTorrent(magnet: String)
     }
 }

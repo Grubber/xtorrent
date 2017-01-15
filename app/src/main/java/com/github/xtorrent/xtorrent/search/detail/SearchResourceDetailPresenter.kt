@@ -5,6 +5,7 @@ import com.github.xtorrent.xtorrent.utils.applySchedulers
 import com.github.xtorrent.xtorrent.utils.bind
 import com.github.xtorrent.xtorrent.utils.plusAssign
 import rx.subscriptions.CompositeSubscription
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -41,6 +42,24 @@ class SearchResourceDetailPresenter @Inject constructor(private val repository: 
 
                     error {
                         view.setErrorView()
+                    }
+                }
+    }
+
+    override fun downloadTorrent(magnet: String) {
+        _binder.clear()
+
+        _binder += repository.getResourceTorrentUrl(magnet)
+                .applySchedulers()
+                .bind {
+                    next {
+                        it?.let {
+                            Timber.d("### torrent url is $it")
+                        }
+                    }
+
+                    error {
+
                     }
                 }
     }

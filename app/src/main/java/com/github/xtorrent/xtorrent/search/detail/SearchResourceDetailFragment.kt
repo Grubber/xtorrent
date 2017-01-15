@@ -1,8 +1,9 @@
 package com.github.xtorrent.xtorrent.search.detail
 
-import android.content.*
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.Paint
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -88,31 +89,33 @@ class SearchResourceDetailFragment : ContentFragment(), SearchResourceDetailCont
     private val _adView by bindView<AdView>(R.id.adView)
 
     private fun _linkToDownload() {
-        try {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(_resource.magnet())
-            startActivity(intent)
+        _presenter.downloadTorrent(_resource.magnet()!!)
 
-            val params = Bundle()
-            params.putString("app_type", "maybe115Netdisk")
-            firebaseAnalytics.logEvent("event_resource_wakeup", params)
-        } catch (e: ActivityNotFoundException) {
-            try {
-                val intent = Intent(Intent.ACTION_VIEW)
-                val packageName = "com.baidu.netdisk"
-                val className = "$packageName.ui.MainActivity"
-                intent.component = ComponentName(packageName, className)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-                showToast("由于百度网盘下载页面不开放原因，请自己手动到下载页面下载资源")
-
-                val params = Bundle()
-                params.putString("app_type", "baiduNetdisk")
-                firebaseAnalytics.logEvent("event_resource_wakeup", params)
-            } catch (e: ActivityNotFoundException) {
-                showToast(R.string.toast_no_apps_found)
-            }
-        }
+//        try {
+//            val intent = Intent(Intent.ACTION_VIEW)
+//            intent.data = Uri.parse(_resource.magnet())
+//            startActivity(intent)
+//
+//            val params = Bundle()
+//            params.putString("app_type", "maybe115Netdisk")
+//            firebaseAnalytics.logEvent("event_resource_wakeup", params)
+//        } catch (e: ActivityNotFoundException) {
+//            try {
+//                val intent = Intent(Intent.ACTION_VIEW)
+//                val packageName = "com.baidu.netdisk"
+//                val className = "$packageName.ui.MainActivity"
+//                intent.component = ComponentName(packageName, className)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                startActivity(intent)
+//                showToast("由于百度网盘下载页面不开放原因，请自己手动到下载页面下载资源")
+//
+//                val params = Bundle()
+//                params.putString("app_type", "baiduNetdisk")
+//                firebaseAnalytics.logEvent("event_resource_wakeup", params)
+//            } catch (e: ActivityNotFoundException) {
+//                showToast(R.string.toast_no_apps_found)
+//            }
+//        }
     }
 
     private val _clipboardManager by lazy {
