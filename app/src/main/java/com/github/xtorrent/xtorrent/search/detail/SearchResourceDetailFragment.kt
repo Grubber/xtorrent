@@ -89,7 +89,7 @@ class SearchResourceDetailFragment : ContentFragment(), SearchResourceDetailCont
     private val _adView by bindView<AdView>(R.id.adView)
 
     private fun _linkToDownload() {
-        _presenter.downloadTorrent(_resource.magnet()!!)
+        _presenter.downloadTorrent(_resource.magnet()!!, _resource.title())
 
 //        try {
 //            val intent = Intent(Intent.ACTION_VIEW)

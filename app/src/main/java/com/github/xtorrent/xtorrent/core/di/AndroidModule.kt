@@ -8,6 +8,7 @@ import com.github.xtorrent.xtorrent.core.di.qualifier.ClientVersionCode
 import com.github.xtorrent.xtorrent.core.di.qualifier.ClientVersionName
 import com.github.xtorrent.xtorrent.core.di.qualifier.ForApplication
 import com.github.xtorrent.xtorrent.core.di.scope.ApplicationScope
+import com.github.xtorrent.xtorrent.utils.FileUtils
 import com.github.xtorrent.xtorrent.utils.checkNotNull
 import dagger.Module
 import dagger.Provides
@@ -48,6 +49,12 @@ class AndroidModule(context: Context) {
     @Provides
     fun provideAssetManager(@ForApplication context: Context): AssetManager {
         return context.assets
+    }
+
+    @ApplicationScope
+    @Provides
+    fun provideFileUtils(@ForApplication context: Context): FileUtils {
+        return FileUtils(context)
     }
 
     private fun _getVersionCode(context: Context): Int {
