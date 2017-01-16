@@ -28,7 +28,6 @@ import com.lapism.searchview.SearchAdapter
 import com.lapism.searchview.SearchHistoryTable
 import com.lapism.searchview.SearchItem
 import com.lapism.searchview.SearchView
-import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 /**
@@ -73,8 +72,6 @@ class MainFragment : XFragment() {
 
     @Inject
     lateinit var moviePresenter: MoviePresenter
-    @Inject
-    lateinit var picasso: Picasso
 
     private var _checkItemId: Int = R.id.homeMenu
 
@@ -89,7 +86,6 @@ class MainFragment : XFragment() {
                 .movieRepositoryComponent
                 .plus(MoviePresenterModule(_movieFragment))
                 .inject(this)
-        _movieFragment.setPicasso(picasso)
 
         _initFragments()
         _replaceContentFrame(0)

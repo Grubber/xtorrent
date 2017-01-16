@@ -14,6 +14,7 @@ import com.github.xtorrent.xtorrent.search.source.SearchResourcesRepositoryCompo
 import com.github.xtorrent.xtorrent.search.source.SearchResourcesRepositoryModule
 import com.github.xtorrent.xtorrent.trend.source.TrendResourcesRepositoryComponent
 import com.squareup.leakcanary.LeakCanary
+import com.squareup.picasso.Picasso
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -36,6 +37,8 @@ class XApplication : MultiDexApplication() {
 
     @Inject
     lateinit var databaseManager: DatabaseManager
+    @Inject
+    lateinit var picasso: Picasso
 
     override fun onCreate() {
         super.onCreate()

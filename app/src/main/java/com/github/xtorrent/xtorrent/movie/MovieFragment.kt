@@ -36,11 +36,10 @@ class MovieFragment : ContentFragment(), MovieContract.View {
     private val _recyclerView by bindView<RecyclerView>(R.id.recyclerView)
 
     private val _adapter by lazy {
-        MovieItemAdapter(context, _presenter, _picasso)
+        MovieItemAdapter(context, _presenter, picasso())
     }
 
     private lateinit var _presenter: MovieContract.Presenter
-    private lateinit var _picasso: Picasso
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -71,10 +70,6 @@ class MovieFragment : ContentFragment(), MovieContract.View {
 
     override fun onRetry() {
         _presenter.subscribe()
-    }
-
-    override fun setPicasso(picasso: Picasso) {
-        _picasso = picasso
     }
 
     override fun onDestroy() {

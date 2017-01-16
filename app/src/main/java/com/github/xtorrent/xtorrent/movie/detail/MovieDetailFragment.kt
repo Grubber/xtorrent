@@ -23,12 +23,10 @@ import com.github.xtorrent.xtorrent.search.SearchResourcesActivity
 import com.github.xtorrent.xtorrent.search.detail.SearchResourceDetailActivity
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
-import com.squareup.picasso.Picasso
 import com.viewpagerindicator.CirclePageIndicator
 import java.net.URLDecoder
 import java.util.*
 import java.util.regex.Pattern
-import kotlin.properties.Delegates
 
 /**
  * Created by zhihao.zeng on 16/12/26.
@@ -60,7 +58,6 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
     }
 
     private lateinit var _presenter: MovieDetailContract.Presenter
-    private lateinit var _picasso: Picasso
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -85,7 +82,7 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
     private val _webView by bindView<WebView>(R.id.webView)
 
     override fun setContentView(movie: Movie) {
-        _picasso.load(movie.headerImage)
+        picasso().load(movie.headerImage)
                 .placeholder(ColorDrawable(R.color.colorGray))
                 .error(ColorDrawable(R.color.colorGray))
                 .fit()
@@ -96,21 +93,15 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
         _picturesViewPager.pageMargin = context.resources.getDimensionPixelOffset(R.dimen.page_margin)
         val pagerAdapter = MoviePicturePagerAdapter(childFragmentManager)
         movie.moviePictures?.map {
-            val fragment = MoviePictureFragment.newInstance(it.img)
-            fragment.picasso = _picasso
-            fragment
+            MoviePictureFragment.newInstance(it.img)
         }?.let {
             pagerAdapter.fragments = it as ArrayList<MoviePictureFragment>
         }
         movie.moviePictures?.first()?.let {
-            val fragment = MoviePictureFragment.newInstance(it.img)
-            fragment.picasso = _picasso
-            pagerAdapter.fragments.add(fragment)
+            pagerAdapter.fragments.add(MoviePictureFragment.newInstance(it.img))
         }
         movie.moviePictures?.last()?.let {
-            val fragment = MoviePictureFragment.newInstance(it.img)
-            fragment.picasso = _picasso
-            pagerAdapter.fragments.add(0, fragment)
+            pagerAdapter.fragments.add(0, MoviePictureFragment.newInstance(it.img))
         }
         _picturesViewPager.adapter = pagerAdapter
         _picturesViewPager.offscreenPageLimit = pagerAdapter.count
@@ -145,10 +136,6 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
 
     override fun setErrorView() {
         displayErrorView()
-    }
-
-    override fun setPicasso(picasso: Picasso) {
-        _picasso = picasso
     }
 
     override fun onRetry() {
@@ -217,8 +204,6 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
 
         private val _imageView by bindView<ImageView>(R.id.imageView)
 
-        var picasso by Delegates.notNull<Picasso>()
-
         private val _url by lazy {
             arguments.getString(EXTRA_URL)
         }
@@ -226,7 +211,7 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
 
-            picasso.load(_url)
+            picasso().load(_url)
                     .placeholder(ColorDrawable(R.color.colorGray))
                     .error(ColorDrawable(R.color.colorGray))
                     .fit()
