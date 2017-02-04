@@ -92,6 +92,24 @@ class SearchResourcesRemoteDataSource() : SearchResourcesDataSource {
         }
     }
 
+    override fun getResourceTorrentUrl(magnet: String): Observable<String> {
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    val document = newJsoupConnection("http://bt.gg/magnet2torrent")
+                            .data("url", magnet)
+                            .post()
+                    val url = document?.getElementById("download_bt")
+                            ?.attr("href")
+                    it.onNext(url)
+                    it.onCompleted()
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
+    }
+
     override fun saveSearchResource(resource: Resource) {
         // Ignored.
     }

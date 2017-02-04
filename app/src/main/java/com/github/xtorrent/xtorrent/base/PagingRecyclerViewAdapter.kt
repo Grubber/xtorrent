@@ -80,7 +80,7 @@ abstract class PagingRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (itemCount == 1) {
+        if (_items.size == 0) {
             return TYPE_EMPTY
         }
 

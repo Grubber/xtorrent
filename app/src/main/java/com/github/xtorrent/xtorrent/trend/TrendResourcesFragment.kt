@@ -10,11 +10,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
-import com.github.xtorrent.xtorrent.base.BasicRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.base.ContentFragment
+import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.search.detail.SearchResourceDetailActivity
 import com.github.xtorrent.xtorrent.trend.model.TrendResource
-import com.google.firebase.analytics.FirebaseAnalytics
 
 /**
  * Created by zhihao.zeng on 16/12/27.
@@ -70,7 +69,7 @@ class TrendResourcesFragment : ContentFragment(), TrendResourcesContract.View {
     }
 
     override fun setContentView(resources: List<TrendResource>) {
-        _adapter.addItems(resources)
+        _adapter.addItems(resources, PagingRecyclerViewAdapter.STATE_LOADING_COMPLETED)
         displayContentView()
     }
 
@@ -87,7 +86,7 @@ class TrendResourcesFragment : ContentFragment(), TrendResourcesContract.View {
         return null
     }
 
-    class TrendResourceItemAdapter(private val context: Context) : BasicRecyclerViewAdapter<TrendResource>() {
+    class TrendResourceItemAdapter(private val context: Context) : PagingRecyclerViewAdapter<TrendResource>() {
         override fun onCreateBasicItemViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             return TrendResourceItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_trend_resources, parent, false))
         }
@@ -101,10 +100,19 @@ class TrendResourcesFragment : ContentFragment(), TrendResourcesContract.View {
             holder.filesView.text = "文件数 ${item.files}"
             holder.itemView.setOnClickListener {
                 SearchResourceDetailActivity.start(context, item.title, item.url)
-                val params = Bundle()
-                params.putString("trend_resource_name", item.title)
-                FirebaseAnalytics.getInstance(context).logEvent("event_trend_resource_list", params)
             }
+        }
+
+        override fun onRetry(pageNumber: Int) {
+            // Ignored.
+        }
+
+        override fun onLoadMore(pageNumber: Int) {
+            // Ignored.
+        }
+
+        override fun getLoadCount(): Int {
+            return 0
         }
 
         class TrendResourceItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {

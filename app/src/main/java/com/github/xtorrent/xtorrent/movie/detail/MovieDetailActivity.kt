@@ -6,7 +6,6 @@ import android.os.Bundle
 import com.github.xtorrent.xtorrent.R
 import com.github.xtorrent.xtorrent.XApplication
 import com.github.xtorrent.xtorrent.base.XActivity
-import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 /**
@@ -27,8 +26,6 @@ class MovieDetailActivity : XActivity() {
 
     @Inject
     lateinit var presenter: MovieDetailPresenter
-    @Inject
-    lateinit var picasso: Picasso
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +37,6 @@ class MovieDetailActivity : XActivity() {
                 .movieRepositoryComponent
                 .plus(MovieDetailPresenterModule(fragment))
                 .inject(this)
-        fragment.setPicasso(picasso)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, fragment)
                 .commit()
