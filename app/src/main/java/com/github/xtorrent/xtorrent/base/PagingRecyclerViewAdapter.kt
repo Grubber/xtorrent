@@ -5,8 +5,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.xtorrent.xtorrent.R
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 
 /**
  * Created by zhihao.zeng on 16/11/29.
@@ -82,7 +80,7 @@ abstract class PagingRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (itemCount == 1) {
+        if (_items.size == 0) {
             return TYPE_EMPTY
         }
 
@@ -185,9 +183,6 @@ abstract class PagingRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.
     }
 
     open fun onBindFooterView(holder: RecyclerView.ViewHolder, position: Int) {
-        val adView = holder.itemView.findViewById(R.id.adView) as AdView
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
     }
 
     abstract fun onCreateBasicItemViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
@@ -208,9 +203,6 @@ abstract class PagingRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.
     }
 
     open fun onBindLoadingMoreItemView(holder: RecyclerView.ViewHolder, position: Int) {
-        val adView = holder.itemView.findViewById(R.id.adView) as AdView
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
     }
 
     open fun onCreateLoadingMoreErrorItemViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

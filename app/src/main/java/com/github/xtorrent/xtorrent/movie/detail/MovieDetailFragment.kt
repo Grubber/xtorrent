@@ -21,8 +21,6 @@ import com.github.xtorrent.xtorrent.movie.model.Movie
 import com.github.xtorrent.xtorrent.movie.view.LoopViewPager
 import com.github.xtorrent.xtorrent.search.SearchResourcesActivity
 import com.github.xtorrent.xtorrent.search.detail.SearchResourceDetailActivity
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 import com.viewpagerindicator.CirclePageIndicator
 import java.net.URLDecoder
 import java.util.*
@@ -64,12 +62,7 @@ class MovieDetailFragment : ContentFragment(), MovieDetailContract.View {
 
         _presenter.setUrl(_url)
         _presenter.subscribe()
-
-        val adRequest = AdRequest.Builder().build()
-        _adView.loadAd(adRequest)
     }
-
-    private val _adView by bindView<AdView>(R.id.adView)
 
     override fun setPresenter(presenter: MovieDetailContract.Presenter) {
         _presenter = presenter

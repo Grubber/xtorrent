@@ -60,10 +60,6 @@ android {
             minifyEnabled getDebugConfig()
             zipAlignEnabled getDebugConfig()
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            resValue "string", "bottom_ad_unit_id", "ca-app-pub-3940256099942544/6300978111"
-            resValue "string", "loading_ad_unit_id", "ca-app-pub-3940256099942544/6300978111"
-
             applicationIdSuffix ".debug"
         }
 
@@ -83,15 +79,12 @@ android {
                     }
                 }
             }
-
-            resValue "string", "bottom_ad_unit_id", "ca-app-pub-8414367625118169/6496504334"
-            resValue "string", "loading_ad_unit_id", "ca-app-pub-8414367625118169/7973237532"
         }
     }
 
     productFlavors {
         googlePlay {
-            resValue("bool", "show_movie_item", "false")
+            resValue("bool", "show_movie_item", "true")
         }
 
         others {
@@ -132,7 +125,7 @@ repositories {
 }
 
 buildscript {
-    ext.support_version = '25.1.0'
+    ext.support_version = '25.1.1'
     ext.okhttp_version = '3.4.1'
     ext.retrofit_version = '2.1.0'
     ext.rxlifecycle_version = '0.6.1'
@@ -198,14 +191,8 @@ dependencies {
     compile 'com.lapism:searchview:4.0'
     compile 'me.zhanghai.android.materialprogressbar:library:1.1.7'
 
-    compile 'com.google.firebase:firebase-core:10.0.1'
-    compile 'com.google.android.gms:play-services:10.0.1'
-    compile 'com.google.android.gms:play-services-ads:10.0.1'
-
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
 }
-
-apply plugin: 'com.google.gms.google-services'

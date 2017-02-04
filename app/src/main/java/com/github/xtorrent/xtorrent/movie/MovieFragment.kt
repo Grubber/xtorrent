@@ -16,7 +16,6 @@ import com.github.xtorrent.xtorrent.base.ContentFragment
 import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.movie.detail.MovieDetailActivity
 import com.github.xtorrent.xtorrent.movie.model.Movie
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.squareup.picasso.Picasso
 
 /**
@@ -108,9 +107,6 @@ class MovieFragment : ContentFragment(), MovieContract.View {
             holder.titleView.text = item.title
             holder.itemView.setOnClickListener {
                 MovieDetailActivity.start(context, item.title, item.url!!)
-                val params = Bundle()
-                params.putString("movie_name", item.title)
-                FirebaseAnalytics.getInstance(context).logEvent("event_movie_list", params)
             }
         }
 
