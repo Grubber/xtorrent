@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.ViewAnimator
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class BetterViewAnimator : ViewAnimator {
     constructor(context: Context?) : super(context)

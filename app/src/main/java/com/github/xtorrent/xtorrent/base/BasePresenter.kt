@@ -1,7 +1,7 @@
 package com.github.xtorrent.xtorrent.base
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 interface BasePresenter {
     fun subscribe()

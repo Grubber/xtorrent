@@ -11,7 +11,7 @@ import com.github.xtorrent.xtorrent.trend.source.TrendResourcesRepositoryCompone
 import dagger.Component
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 @ApplicationScope
 @Component(modules = arrayOf(AndroidModule::class, DataModule::class, NetworkModule::class))

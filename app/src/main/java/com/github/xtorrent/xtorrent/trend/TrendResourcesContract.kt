@@ -5,7 +5,7 @@ import com.github.xtorrent.xtorrent.base.BaseView
 import com.github.xtorrent.xtorrent.trend.model.TrendResource
 
 /**
- * Created by zhihao.zeng on 16/12/27.
+ * Created by grubber on 16/12/27.
  */
 interface TrendResourcesContract {
     interface View : BaseView<Presenter> {

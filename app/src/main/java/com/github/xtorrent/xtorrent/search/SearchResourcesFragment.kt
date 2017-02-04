@@ -18,10 +18,9 @@ import com.github.xtorrent.xtorrent.search.detail.SearchResourceDetailActivity
 import com.github.xtorrent.xtorrent.search.model.Resource
 import com.github.xtorrent.xtorrent.search.model.ResourceItem
 import com.github.xtorrent.xtorrent.search.view.ResourceItemView
-import com.google.firebase.analytics.FirebaseAnalytics
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View {
     companion object {
@@ -122,10 +121,6 @@ class SearchResourcesFragment : ContentFragment(), SearchResourcesContract.View 
 
             holder.itemView.setOnClickListener {
                 SearchResourceDetailActivity.start(context, item.first.title().replace("<b>", "").replace("</b>", ""), item.first.url())
-                val params = Bundle()
-                params.putString("resource_name", item.first.title().replace("<b>", "").replace("</b>", ""))
-                params.putString("resource_url", item.first.url())
-                FirebaseAnalytics.getInstance(context).logEvent("event_search_resource_list", params)
             }
         }
 

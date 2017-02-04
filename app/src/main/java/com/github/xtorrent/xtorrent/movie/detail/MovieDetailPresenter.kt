@@ -8,7 +8,7 @@ import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
 /**
- * Created by zhihao.zeng on 16/12/26.
+ * Created by grubber on 16/12/26.
  */
 class MovieDetailPresenter @Inject constructor(private val repository: MovieRepository,
                                                private val view: MovieDetailContract.View) : MovieDetailContract.Presenter {

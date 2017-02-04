@@ -28,11 +28,10 @@ import com.lapism.searchview.SearchAdapter
 import com.lapism.searchview.SearchHistoryTable
 import com.lapism.searchview.SearchItem
 import com.lapism.searchview.SearchView
-import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class MainFragment : XFragment() {
     companion object {
@@ -73,8 +72,6 @@ class MainFragment : XFragment() {
 
     @Inject
     lateinit var moviePresenter: MoviePresenter
-    @Inject
-    lateinit var picasso: Picasso
 
     private var _checkItemId: Int = R.id.homeMenu
 
@@ -89,7 +86,6 @@ class MainFragment : XFragment() {
                 .movieRepositoryComponent
                 .plus(MoviePresenterModule(_movieFragment))
                 .inject(this)
-        _movieFragment.setPicasso(picasso)
 
         _initFragments()
         _replaceContentFrame(0)
@@ -135,36 +131,27 @@ class MainFragment : XFragment() {
         _navigationView.setNavigationItemSelectedListener {
             var index: Int = 0
 
-            val params = Bundle()
-
             when (it.itemId) {
                 R.id.homeMenu -> {
                     index = 0
-                    params.putString(MENU_TYPE, MENU_HOME)
                 }
 
                 R.id.trend -> {
                     index = 1
-                    params.putString(MENU_TYPE, MENU_TREND)
                 }
 
                 R.id.movie -> {
                     index = 2
-                    params.putString(MENU_TYPE, MENU_MOVIE)
                 }
 
                 R.id.settings -> {
                     SettingsActivity.start(context)
-                    params.putString(MENU_TYPE, MENU_SETTINGS)
                 }
 
                 R.id.feedback -> {
                     FeedbackActivity.start(context)
-                    params.putString(MENU_TYPE, MENU_FEEDBACK)
                 }
             }
-
-            firebaseAnalytics.logEvent(EVENT_MENU, params)
 
             if (it.itemId != R.id.settings && it.itemId != R.id.feedback && !it.isChecked) {
                 _replaceContentFrame(index)
@@ -175,14 +162,6 @@ class MainFragment : XFragment() {
             true
         }
     }
-
-    private val EVENT_MENU = "eventMenu"
-    private val MENU_TYPE = "menuType"
-    private val MENU_HOME = "home"
-    private val MENU_TREND = "trend"
-    private val MENU_MOVIE = "movie"
-    private val MENU_SETTINGS = "settings"
-    private val MENU_FEEDBACK = "feedback"
 
     private fun _initFragments() {
         val transaction = childFragmentManager.beginTransaction()

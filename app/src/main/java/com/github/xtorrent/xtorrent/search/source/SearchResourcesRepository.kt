@@ -6,7 +6,7 @@ import rx.Observable
 import javax.inject.Inject
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 @SearchResourcesScope
 class SearchResourcesRepository @Inject constructor(private @LocalSearchResources val localDataSource: SearchResourcesDataSource,
@@ -19,11 +19,15 @@ class SearchResourcesRepository @Inject constructor(private @LocalSearchResource
         val localOb = localDataSource.getSearchResource(url) // TODO
         val remoteOb = remoteDataSource.getSearchResource(url)
                 .doOnNext {
-//                    localDataSource.saveSearchResource(it.first)
+                    //                    localDataSource.saveSearchResource(it.first)
                 }
         return Observable.concat(localOb, remoteOb)
                 .filter { it != null }
                 .first()
+    }
+
+    override fun getResourceTorrentUrl(magnet: String): Observable<String> {
+        return remoteDataSource.getResourceTorrentUrl(magnet)
     }
 
     override fun saveSearchResource(resource: Resource) {

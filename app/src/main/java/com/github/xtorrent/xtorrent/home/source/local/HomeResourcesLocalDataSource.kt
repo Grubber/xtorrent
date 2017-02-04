@@ -9,7 +9,7 @@ import rx.lang.kotlin.emptyObservable
 import rx.lang.kotlin.observable
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class HomeResourcesLocalDataSource(private val databaseManager: DatabaseManager) : HomeResourcesDataSource {
     private val _db by lazy {

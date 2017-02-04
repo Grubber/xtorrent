@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.github.xtorrent.xtorrent.R
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 abstract class PagingRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
@@ -80,7 +80,7 @@ abstract class PagingRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (itemCount == 1) {
+        if (_items.size == 0) {
             return TYPE_EMPTY
         }
 

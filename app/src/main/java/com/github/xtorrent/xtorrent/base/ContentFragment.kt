@@ -12,7 +12,7 @@ import com.github.xtorrent.xtorrent.widget.BetterViewAnimator
 import kotlin.properties.Delegates
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 abstract class ContentFragment : XFragment() {
     private val _contentContainer by bindView<FrameLayout>(R.id.contentContainer)

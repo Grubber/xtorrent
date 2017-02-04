@@ -7,7 +7,7 @@ import rx.schedulers.Schedulers
 import rx.subscriptions.CompositeSubscription
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 fun <T> Observable<T>.applySchedulers(): Observable<T> {
     return this.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

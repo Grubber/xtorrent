@@ -16,11 +16,10 @@ import com.github.xtorrent.xtorrent.base.ContentFragment
 import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.movie.detail.MovieDetailActivity
 import com.github.xtorrent.xtorrent.movie.model.Movie
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.squareup.picasso.Picasso
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class MovieFragment : ContentFragment(), MovieContract.View {
     companion object {
@@ -36,11 +35,10 @@ class MovieFragment : ContentFragment(), MovieContract.View {
     private val _recyclerView by bindView<RecyclerView>(R.id.recyclerView)
 
     private val _adapter by lazy {
-        MovieItemAdapter(context, _presenter, _picasso)
+        MovieItemAdapter(context, _presenter, picasso())
     }
 
     private lateinit var _presenter: MovieContract.Presenter
-    private lateinit var _picasso: Picasso
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -71,10 +69,6 @@ class MovieFragment : ContentFragment(), MovieContract.View {
 
     override fun onRetry() {
         _presenter.subscribe()
-    }
-
-    override fun setPicasso(picasso: Picasso) {
-        _picasso = picasso
     }
 
     override fun onDestroy() {
@@ -113,9 +107,6 @@ class MovieFragment : ContentFragment(), MovieContract.View {
             holder.titleView.text = item.title
             holder.itemView.setOnClickListener {
                 MovieDetailActivity.start(context, item.title, item.url!!)
-                val params = Bundle()
-                params.putString("movie_name", item.title)
-                FirebaseAnalytics.getInstance(context).logEvent("event_movie_list", params)
             }
         }
 

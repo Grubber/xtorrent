@@ -4,7 +4,7 @@ import com.github.xtorrent.xtorrent.R
 import com.github.xtorrent.xtorrent.base.XFragment
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class SettingsFragment : XFragment() {
     companion object {

@@ -2,10 +2,7 @@ package com.github.xtorrent.xtorrent
 
 import android.content.Context
 import android.support.multidex.MultiDexApplication
-import com.github.xtorrent.xtorrent.core.di.AndroidModule
-import com.github.xtorrent.xtorrent.core.di.ApplicationComponent
-import com.github.xtorrent.xtorrent.core.di.DaggerApplicationComponent
-import com.github.xtorrent.xtorrent.core.di.DataModule
+import com.github.xtorrent.xtorrent.core.di.*
 import com.github.xtorrent.xtorrent.db.DatabaseManager
 import com.github.xtorrent.xtorrent.home.source.HomeResourcesRepositoryComponent
 import com.github.xtorrent.xtorrent.home.source.HomeResourcesRepositoryModule
@@ -14,12 +11,13 @@ import com.github.xtorrent.xtorrent.search.source.SearchResourcesRepositoryCompo
 import com.github.xtorrent.xtorrent.search.source.SearchResourcesRepositoryModule
 import com.github.xtorrent.xtorrent.trend.source.TrendResourcesRepositoryComponent
 import com.squareup.leakcanary.LeakCanary
+import com.squareup.picasso.Picasso
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class XApplication : MultiDexApplication() {
     companion object {
@@ -36,6 +34,8 @@ class XApplication : MultiDexApplication() {
 
     @Inject
     lateinit var databaseManager: DatabaseManager
+    @Inject
+    lateinit var picasso: Picasso
 
     override fun onCreate() {
         super.onCreate()
@@ -50,6 +50,7 @@ class XApplication : MultiDexApplication() {
         applicationComponent = DaggerApplicationComponent.builder()
                 .androidModule(AndroidModule(this))
                 .dataModule(DataModule())
+                .networkModule(NetworkModule())
                 .build()
         homeResourcesRepositoryComponent = applicationComponent.plus(HomeResourcesRepositoryModule())
         searchResourcesRepositoryComponent = applicationComponent.plus(SearchResourcesRepositoryModule())

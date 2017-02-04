@@ -11,9 +11,9 @@ import timber.log.Timber
 import java.net.URLEncoder
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
-class SearchResourcesRemoteDataSource() : SearchResourcesDataSource {
+class SearchResourcesRemoteDataSource : SearchResourcesDataSource {
     override fun getSearchResources(keyword: String, pageNumber: Int): Observable<List<Pair<Resource, List<ResourceItem>>>> {
         return observable {
             if (!it.isUnsubscribed) {
@@ -84,6 +84,24 @@ class SearchResourcesRemoteDataSource() : SearchResourcesDataSource {
                             } ?: arrayListOf()
 
                     it.onNext(Pair(resource, resourceItems))
+                    it.onCompleted()
+                } catch (e: Exception) {
+                    it.onError(e)
+                }
+            }
+        }
+    }
+
+    override fun getResourceTorrentUrl(magnet: String): Observable<String> {
+        return observable {
+            if (!it.isUnsubscribed) {
+                try {
+                    val document = newJsoupConnection("http://bt.gg/magnet2torrent")
+                            .data("url", magnet)
+                            .post()
+                    val url = document?.getElementById("download_bt")
+                            ?.attr("href")
+                    it.onNext(url)
                     it.onCompleted()
                 } catch (e: Exception) {
                     it.onError(e)

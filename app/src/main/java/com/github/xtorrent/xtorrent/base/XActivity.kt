@@ -9,7 +9,7 @@ import com.github.xtorrent.xtorrent.R
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 abstract class XActivity : RxAppCompatActivity() {
     val toolbar by bindView<Toolbar>(R.id.toolbar)

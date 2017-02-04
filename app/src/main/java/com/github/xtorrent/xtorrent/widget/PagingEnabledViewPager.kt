@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class PagingEnabledViewPager : ViewPager {
     constructor(context: Context?) : super(context)

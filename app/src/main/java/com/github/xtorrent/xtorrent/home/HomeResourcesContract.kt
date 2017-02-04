@@ -5,7 +5,7 @@ import com.github.xtorrent.xtorrent.base.BaseView
 import com.github.xtorrent.xtorrent.home.model.HomeResource
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 interface HomeResourcesContract {
     interface View : BaseView<Presenter> {

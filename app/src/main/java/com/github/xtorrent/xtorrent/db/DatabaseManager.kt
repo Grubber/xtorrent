@@ -7,7 +7,7 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 @ApplicationScope
 class DatabaseManager @Inject constructor(private val helper: DelightfulOpenHelper) {

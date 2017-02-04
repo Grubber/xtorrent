@@ -9,7 +9,7 @@ import rx.lang.kotlin.observable
 import javax.inject.Inject
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 @HomeResourcesScope
 class HomeResourcesRepository @Inject constructor(private @LocalHomeResources val localDataSource: HomeResourcesDataSource,

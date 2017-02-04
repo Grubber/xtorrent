@@ -15,7 +15,7 @@ import com.lapism.searchview.SearchView
 import javax.inject.Inject
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class SearchResourcesActivity : AppCompatActivity() {
     companion object {

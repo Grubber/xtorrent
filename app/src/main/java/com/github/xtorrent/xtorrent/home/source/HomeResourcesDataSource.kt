@@ -4,7 +4,7 @@ import com.github.xtorrent.xtorrent.home.model.HomeResource
 import rx.Observable
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 interface HomeResourcesDataSource {
     fun getHomeResources(type: HomeResource.Type): Observable<List<HomeResource>>

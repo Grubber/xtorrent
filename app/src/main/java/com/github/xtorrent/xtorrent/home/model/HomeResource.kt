@@ -5,7 +5,7 @@ import com.google.auto.value.AutoValue
 import com.squareup.sqldelight.EnumColumnAdapter
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 @AutoValue
 abstract class HomeResource : HomeResourceModel {

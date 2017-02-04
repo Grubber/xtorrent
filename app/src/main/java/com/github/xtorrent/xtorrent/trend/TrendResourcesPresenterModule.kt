@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 
 /**
- * Created by zhihao.zeng on 16/12/27.
+ * Created by grubber on 16/12/27.
  */
 @Module
 class TrendResourcesPresenterModule(val view: TrendResourcesContract.View) {

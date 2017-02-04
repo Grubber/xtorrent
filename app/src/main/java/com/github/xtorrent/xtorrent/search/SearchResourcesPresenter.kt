@@ -12,7 +12,7 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class SearchResourcesPresenter @Inject constructor(private val repository: SearchResourcesRepository,
                                                    private val view: SearchResourcesContract.View) : SearchResourcesContract.Presenter {

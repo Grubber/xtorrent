@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 abstract class BasicRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {

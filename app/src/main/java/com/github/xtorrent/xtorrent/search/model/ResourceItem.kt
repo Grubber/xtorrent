@@ -4,7 +4,7 @@ import com.github.xtorrent.xtorrent.db.model.ResourceItemModel
 import com.google.auto.value.AutoValue
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 @AutoValue
 abstract class ResourceItem : ResourceItemModel {

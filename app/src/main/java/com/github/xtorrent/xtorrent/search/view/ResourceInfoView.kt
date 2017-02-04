@@ -9,7 +9,7 @@ import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class ResourceInfoView : FrameLayout {
     constructor(context: Context?) : super(context) {

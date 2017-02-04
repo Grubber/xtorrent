@@ -7,7 +7,7 @@ import rx.Observable
 import rx.lang.kotlin.emptyObservable
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class SearchResourcesLocalDataSource : SearchResourcesDataSource {
     override fun getSearchResources(keyword: String, pageNumber: Int): Observable<List<Pair<Resource, List<ResourceItem>>>> {
@@ -26,5 +26,10 @@ class SearchResourcesLocalDataSource : SearchResourcesDataSource {
 
     override fun updateSearchResource(resource: Resource) {
         // TODO
+    }
+
+    override fun getResourceTorrentUrl(magnet: String): Observable<String> {
+        // Ignored
+        return emptyObservable()
     }
 }

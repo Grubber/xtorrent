@@ -8,7 +8,7 @@ import rx.lang.kotlin.observable
 import javax.inject.Inject
 
 /**
- * Created by zhihao.zeng on 16/12/27.
+ * Created by grubber on 16/12/27.
  */
 @TrendResourcesScope
 class TrendResourcesRepository @Inject constructor() : TrendResourcesDataSource {

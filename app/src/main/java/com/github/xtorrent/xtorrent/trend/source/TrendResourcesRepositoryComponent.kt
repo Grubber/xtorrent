@@ -5,7 +5,7 @@ import com.github.xtorrent.xtorrent.trend.TrendResourcesPresenterModule
 import dagger.Subcomponent
 
 /**
- * Created by zhihao.zeng on 16/12/27.
+ * Created by grubber on 16/12/27.
  */
 @TrendResourcesScope
 @Subcomponent()

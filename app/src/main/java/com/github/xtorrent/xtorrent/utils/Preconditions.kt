@@ -1,7 +1,7 @@
 package com.github.xtorrent.xtorrent.utils
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 fun <T> checkNotNull(t: T?): T {
     return t ?: throw NullPointerException()

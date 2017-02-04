@@ -8,7 +8,7 @@ import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
 /**
- * Created by zhihao.zeng on 16/12/27.
+ * Created by grubber on 16/12/27.
  */
 class TrendResourcesPresenter @Inject constructor(private val repository: TrendResourcesRepository,
                                                   private val view: TrendResourcesContract.View) : TrendResourcesContract.Presenter {

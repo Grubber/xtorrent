@@ -11,7 +11,7 @@ import com.github.xtorrent.xtorrent.db.model.ResourceModel
 import javax.inject.Inject
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 @ApplicationScope
 class DelightfulOpenHelper @Inject constructor(private @ForApplication val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {

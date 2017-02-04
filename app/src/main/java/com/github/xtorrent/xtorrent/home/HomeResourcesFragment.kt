@@ -11,16 +11,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.bindView
 import com.github.xtorrent.xtorrent.R
-import com.github.xtorrent.xtorrent.base.BasicRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.base.ContentFragment
+import com.github.xtorrent.xtorrent.base.PagingRecyclerViewAdapter
 import com.github.xtorrent.xtorrent.home.model.HomeResource
 import com.github.xtorrent.xtorrent.search.SearchResourcesActivity
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.jakewharton.rxbinding.support.v4.widget.refreshes
 import java.util.regex.Pattern
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
     companion object {
@@ -83,7 +82,7 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
     }
 
     override fun setContentView(resources: List<HomeResource>) {
-        _adapter.addItems(resources)
+        _adapter.addItems(resources, PagingRecyclerViewAdapter.STATE_LOADING_COMPLETED)
         displayContentView()
     }
 
@@ -92,7 +91,7 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
         _presenter.setType(_type)
     }
 
-    class ResourceItemAdapter(val type: HomeResource.Type, val context: Context) : BasicRecyclerViewAdapter<HomeResource>() {
+    class ResourceItemAdapter(val type: HomeResource.Type, val context: Context) : PagingRecyclerViewAdapter<HomeResource>() {
         override fun onCreateBasicItemViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             return ResourceItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_home_resources, parent, false))
         }
@@ -111,16 +110,24 @@ class HomeResourcesFragment : ContentFragment(), HomeResourcesContract.View {
                 val matcher = _pattern.matcher(item.url())
                 if (matcher.find()) {
                     SearchResourcesActivity.start(context, matcher.group(1))
-                    val params = Bundle()
-                    params.putString("home_resource_name", item.title())
-                    params.putString("home_resource_type", type.name)
-                    FirebaseAnalytics.getInstance(context).logEvent("event_home_resource_list", params)
                 }
             }
         }
 
         private val _pattern by lazy {
             Pattern.compile("/s/(.*)(___)")
+        }
+
+        override fun onLoadMore(pageNumber: Int) {
+            // Ignored.
+        }
+
+        override fun getLoadCount(): Int {
+            return 0
+        }
+
+        override fun onRetry(pageNumber: Int) {
+            // Ignored.
         }
     }
 

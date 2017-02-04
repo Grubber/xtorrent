@@ -8,20 +8,17 @@ import com.github.xtorrent.xtorrent.core.di.qualifier.ClientVersionCode
 import com.github.xtorrent.xtorrent.core.di.qualifier.ClientVersionName
 import com.github.xtorrent.xtorrent.core.di.qualifier.ForApplication
 import com.github.xtorrent.xtorrent.core.di.scope.ApplicationScope
+import com.github.xtorrent.xtorrent.utils.FileUtils
 import com.github.xtorrent.xtorrent.utils.checkNotNull
 import dagger.Module
 import dagger.Provides
 
 /**
- * Created by zhihao.zeng on 16/11/29.
+ * Created by grubber on 16/11/29.
  */
 @Module
 class AndroidModule(context: Context) {
-    private val _context: Context
-
-    init {
-        _context = checkNotNull(context, "Application context can't be null.")
-    }
+    private val _context: Context = checkNotNull(context, "Application context can't be null.")
 
     @Provides
     @ApplicationScope
@@ -48,6 +45,12 @@ class AndroidModule(context: Context) {
     @Provides
     fun provideAssetManager(@ForApplication context: Context): AssetManager {
         return context.assets
+    }
+
+    @ApplicationScope
+    @Provides
+    fun provideFileUtils(@ForApplication context: Context): FileUtils {
+        return FileUtils(context)
     }
 
     private fun _getVersionCode(context: Context): Int {

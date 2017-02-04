@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 
 /**
- * Created by zhihao.zeng on 16/12/26.
+ * Created by grubber on 16/12/26.
  */
 @Module
 class MovieDetailPresenterModule(val view: MovieDetailContract.View) {
