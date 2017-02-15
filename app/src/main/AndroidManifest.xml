@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.github.xtorrent.xtorrent">
+    package="com.github.grubber.xtorrent">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".XApplication"
+        android:name="com.github.grubber.xtorrent.XApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".main.MainActivity"
+            android:name="com.github.grubber.xtorrent.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MainTheme">
             <intent-filter tools:ignore="GoogleAppIndexingWarning">
@@ -28,24 +28,24 @@
         </activity>
 
         <activity
-            android:name=".search.SearchResourcesActivity"
+            android:name="com.github.grubber.xtorrent.search.SearchResourcesActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".search.detail.SearchResourceDetailActivity"
+            android:name="com.github.grubber.xtorrent.search.detail.SearchResourceDetailActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".settings.SettingsActivity"
+            android:name="com.github.grubber.xtorrent.settings.SettingsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".feedback.FeedbackActivity"
+            android:name="com.github.grubber.xtorrent.feedback.FeedbackActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".movie.detail.MovieDetailActivity"
+            android:name="com.github.grubber.xtorrent.movie.detail.MovieDetailActivity"
             android:screenOrientation="portrait" />
     </application>
 

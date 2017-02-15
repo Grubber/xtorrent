@@ -16,7 +16,7 @@
         app:tabTextAppearance="@style/TabItemTextAppearance"
         app:tabTextColor="#333" />
 
-    <com.github.xtorrent.xtorrent.widget.PagingEnabledViewPager
+    <com.github.grubber.xtorrent.widget.PagingEnabledViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -47,7 +47,7 @@
                 android:orientation="vertical"
                 android:paddingTop="16dp">
 
-                <com.github.xtorrent.xtorrent.movie.view.LoopViewPager
+                <com.github.grubber.xtorrent.movie.view.LoopViewPager
                     android:id="@+id/picturesViewPager"
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
